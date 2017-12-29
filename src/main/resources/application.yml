@@ -1,0 +1,11 @@
+dataSource:
+  primary:
+    jdbcUrl: jdbc:mysql://localhost:3306/primary?useUnicode=true&characterEncoding=utf8&useSSL=true
+    username: root
+    password:
+    driverClassName: com.mysql.jdbc.Driver
+  second:
+    jdbcUrl: jdbc:mysql://localhost:3306/second?useUnicode=true&characterEncoding=utf8&useSSL=true
+    username: root
+    password:
+    driverClassName: com.mysql.jdbc.Driver
