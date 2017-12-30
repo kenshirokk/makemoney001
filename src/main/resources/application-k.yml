@@ -1,0 +1,11 @@
+dataSource:
+  jeefwtwo:
+    jdbcUrl: jdbc:sqlserver://10.0.0.20:1433;DatabaseName=jeefwtwo
+    username: sa
+    password: Passw0rd
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  manager:
+    jdbcUrl: jdbc:sqlserver://10.0.0.20:1433;DatabaseName=manager
+    username: sa
+    password: Passw0rd
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
