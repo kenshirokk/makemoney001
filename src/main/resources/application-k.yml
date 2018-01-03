@@ -4,8 +4,13 @@ dataSource:
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  manager:
-    jdbcUrl: jdbc:sqlserver://10.0.0.20:1433;DatabaseName=manager
+  adminManager:
+    jdbcUrl: jdbc:sqlserver://10.0.0.20:1433;DatabaseName=AdminManager
+    username: sa
+    password: Passw0rd
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  QPAccountsDB:
+    jdbcUrl: jdbc:sqlserver://10.0.0.20:1433;DatabaseName=QPAccountsDB
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver

@@ -14,8 +14,11 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.mtf.admin.mapper.jeefwtwo", sqlSessionFactoryRef = "jeefwtwoSqlSessionFactory")
+@MapperScan(basePackages = JeefwtwoDataSourceConfig.BASE_PACKAGE, sqlSessionFactoryRef = "jeefwtwoSqlSessionFactory")
 public class JeefwtwoDataSourceConfig {
+
+    public static final String BASE_PACKAGE = "com.mtf.admin.mapper.jeefwtwo";
+    public static final String MAPPER_LOCATION = "classpath:mapper/jeefwtwo/*.xml";
 
     @Bean("jeefwtwoDataSource")
     @ConfigurationProperties(prefix = "dataSource.jeefwtwo")
@@ -32,7 +35,7 @@ public class JeefwtwoDataSourceConfig {
     public SqlSessionFactory jeefwtwoSqlSessionFactory(@Qualifier("jeefwtwoDataSource") DataSource jeefwtwoDataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(jeefwtwoDataSource);
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/jeefwtwo/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(JeefwtwoDataSourceConfig.MAPPER_LOCATION));
         return sqlSessionFactoryBean.getObject();
     }
 }
