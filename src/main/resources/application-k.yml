@@ -14,3 +14,5 @@ dataSource:
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+logging:
+  file: logs/admin.log
