@@ -16,3 +16,5 @@ dataSource:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 logging:
   file: logs/admin.log
+server:
+  port: 8088
