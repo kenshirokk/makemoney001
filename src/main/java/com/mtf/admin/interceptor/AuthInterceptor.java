@@ -21,7 +21,10 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String authStr = httpServletRequest.getParameter("auth");
         AuthVO auth = JSONObject.toJavaObject(JSON.parseObject(authStr),AuthVO.class);
-
+        if(auth == null){
+            returnJson(JSONObject.toJSONString(new ResultData(ResultCode.paramsError)),httpServletResponse);
+            return false;
+        }
         Date authTime = auth.getAuthTime();
         Calendar now = Calendar.getInstance();
         now.add(Calendar.DAY_OF_YEAR,-1);
@@ -39,6 +42,8 @@ public class AuthInterceptor implements HandlerInterceptor {
     }
 
     private void returnJson(String json,HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-Type", "text/html;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.write(json.toString());
         writer.flush();
