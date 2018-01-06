@@ -9,6 +9,3 @@ dataSource:
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-
-resultCode:
-  success:
