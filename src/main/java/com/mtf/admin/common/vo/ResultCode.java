@@ -9,6 +9,8 @@ public class ResultCode {
     public final static int success = 200;
     public final static int error = 500;//未知异常
     public final static int paramsError = 400;//参数异常
+    public final static int authError = 301;//权限验证失败
+    public final static int authExpired= 302;//权限过期
 
     protected ResultCode(){}
 
@@ -17,6 +19,8 @@ public class ResultCode {
     static{
         resultMsg.put(error,"未知异常");
         resultMsg.put(paramsError,"参数异常");
+        resultMsg.put(authError,"权限验证失败");
+        resultMsg.put(authExpired,"权限过期");
     }
 
     public static String get(int key){

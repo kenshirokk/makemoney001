@@ -29,4 +29,10 @@
             <appender-ref ref="FILE" />
         </root>
     </springProfile>
+
+    <springProfile name="t">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
 </configuration>

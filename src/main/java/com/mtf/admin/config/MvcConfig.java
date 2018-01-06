@@ -1,5 +1,7 @@
 package com.mtf.admin.config;
 
+import com.mtf.admin.interceptor.AuthInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -9,11 +11,15 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(authInterceptor()).addPathPatterns("/XXX/*", "/XXX/*");
+        registry.addInterceptor(authInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/auth/**");
         super.addInterceptors(registry);
     }
 
-    //TODO
-    //这里用@Bean 写自己的拦截器
+    @Bean
+    public AuthInterceptor authInterceptor(){
+        return new AuthInterceptor();
+    }
 
 }
