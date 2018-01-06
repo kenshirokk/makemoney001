@@ -27,4 +27,5 @@ public class ShopInfoListMapperTest {
             System.out.println(shopInfo);
         }
     }
+
 }

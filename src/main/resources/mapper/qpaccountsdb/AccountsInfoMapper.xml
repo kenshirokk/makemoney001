@@ -4,4 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mtf.admin.mapper.qpaccountsdb.AccountsInfoMapper">
 
+    <!--查询所有玩家-->
+    <select id="findAll" resultType="com.mtf.admin.entity.AccountsInfo">
+        SELECT
+            *
+        FROM
+            AccountsInfo
+    </select>
+
+    <!--更新金币/房卡-->
+    <update id="updatePlus">
+        UPDATE
+            AccountsInfo
+        <set>
+            GameID = GameID,
+        </set>
+        WHERE
+            UserID = #{userId}
+    </update>
+
+    <!--修改推荐人id-->
+    <update id="update">
+        UPDATE
+            AccountsInfo
+        SET
+            SpreaderID = #{spreaderID}
+        WHERE
+            UserID = #{userId}
+    </update>
+
 </mapper>

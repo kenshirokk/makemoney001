@@ -1,5 +1,6 @@
 package com.mtf.admin.mapper.adminmanager;
 
+import com.mtf.admin.entity.Agency;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,7 @@ public class AgencyMapperTest {
     private AgencyMapper agencyMapper;
 
     @Test
-    public void empty() {
-
+    public void findOne() {
+        Agency one = agencyMapper.findOne(1);
     }
-
 }

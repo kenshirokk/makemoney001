@@ -1,13 +1,11 @@
-package com.mtf.admin.mapper.qpaccountsdb;
+package com.mtf.admin.service;
 
 import com.mtf.admin.entity.AccountsInfo;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public interface AccountsInfoMapper {
+public interface AccountsInfoService {
 
     /**
      * 查询所有玩家

@@ -16,5 +16,7 @@ dataSource:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 logging:
   file: logs/admin.log
+  level:
+    com.mtf.admin.mapper: debug
 server:
   port: 8088
