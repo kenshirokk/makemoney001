@@ -78,4 +78,8 @@ public class AccountsInfoController extends BaseController {
         return i > 0 ? success() : error();
     }
 
+    @GetMapping("{userId}")
+    public ResultData findOne(@PathVariable("userId") Integer userId) {
+        return success(accountsInfoService.findOne(userId));
+    }
 }

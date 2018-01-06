@@ -39,4 +39,9 @@ public class AccountsInfoMapperTest {
         params.put("spreaderID", 1);
         int i = accountsInfoMapper.update(params);
     }
+
+    @Test
+    public void findOne() {
+        AccountsInfo one = accountsInfoMapper.findOne(1);
+    }
 }

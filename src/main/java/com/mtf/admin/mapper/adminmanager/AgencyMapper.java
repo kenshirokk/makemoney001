@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface AgencyMapper {
 
     Agency findOne(Integer id);
+    int save(Agency agency);
 }

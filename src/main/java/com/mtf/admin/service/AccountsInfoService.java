@@ -22,4 +22,11 @@ public interface AccountsInfoService {
      * 就是更新操作
      */
     int update(Map<String, Object> params);
+
+    /**
+     * 根据用户id 查询用户
+     * @param userId
+     * @return
+     */
+    AccountsInfo findOne(Integer userId);
 }

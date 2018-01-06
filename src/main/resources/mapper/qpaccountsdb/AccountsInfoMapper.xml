@@ -33,4 +33,14 @@
             UserID = #{userId}
     </update>
 
+    <!--根据用户id 查询用户-->
+    <select id="findOne" resultType="com.mtf.admin.entity.AccountsInfo">
+        SELECT
+            *
+        FROM
+            AccountsInfo
+        WHERE
+            UserID = #{userId}
+    </select>
+
 </mapper>

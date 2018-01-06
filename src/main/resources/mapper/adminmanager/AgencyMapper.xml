@@ -9,6 +9,48 @@
             *
         FROM
             agency
+        WHERE
+            id = #{id}
     </select>
+
+    <insert id="save" parameterType="com.mtf.admin.entity.Agency" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            Agency(
+                agency_type,
+                parent_id,
+                parent_nickname,
+                password,
+                nickname,
+                avatar,
+                phone,
+                room_card,
+                coin,
+                agency_balance,
+                salary_balance,
+                disable,
+                deleted,
+                create_date,
+                creator_id,
+                user_id
+            )
+        VALUES (
+                #{agencyType},
+                #{parentId},
+                #{parentNickname},
+                #{password},
+                #{nickname},
+                #{avatar},
+                #{phone},
+                #{roomCard},
+                #{coin},
+                #{agencyBalance},
+                #{salaryBalance},
+                #{disable},
+                #{deleted},
+                #{createDate},
+                #{creatorId},
+                #{userId}
+                )
+    </insert>
 
 </mapper>

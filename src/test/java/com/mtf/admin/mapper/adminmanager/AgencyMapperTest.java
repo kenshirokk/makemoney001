@@ -19,5 +19,13 @@ public class AgencyMapperTest {
     @Test
     public void findOne() {
         Agency one = agencyMapper.findOne(1);
+        System.out.println(one);
+    }
+
+    @Test
+    public void save() {
+        Agency a = new Agency();
+        a.setAgencyType(2);
+        agencyMapper.save(a);
     }
 }

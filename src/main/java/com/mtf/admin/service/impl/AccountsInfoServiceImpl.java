@@ -41,4 +41,9 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
         }
         return accountsInfoMapper.update(params);
     }
+
+    @Override
+    public AccountsInfo findOne(Integer userId) {
+        return accountsInfoMapper.findOne(userId);
+    }
 }

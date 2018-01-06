@@ -30,4 +30,5 @@ public class Agency implements Serializable {
     private Integer deleted;        //删除
     private Date createDate;        //创建时间
     private Integer creatorId;      //创建者id
+    private Integer userId;         //用户id
 }
