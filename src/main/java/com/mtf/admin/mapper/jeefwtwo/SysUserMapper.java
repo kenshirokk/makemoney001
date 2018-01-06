@@ -1,5 +1,7 @@
 package com.mtf.admin.mapper.jeefwtwo;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import java.util.Map;
  * 更新数据            用 update
  * 删除数据            用 delete
  */
+@Repository
 public interface SysUserMapper {
 
     List<Map<String, Object>> findAll();
