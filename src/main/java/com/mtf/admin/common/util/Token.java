@@ -14,7 +14,7 @@ import java.util.Base64;
 public class Token {
 
     public static String generate(AuthVO auth) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-        byte [] key =  "fumingkaishidasb".getBytes();
+        byte [] key =  "pNWs6!#EXU^g".getBytes();
         String dataStr = StringUtils.join(new String[]{
                 auth.getUcode(),
                 auth.getRole().toString(),
