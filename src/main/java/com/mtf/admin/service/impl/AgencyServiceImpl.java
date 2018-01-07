@@ -52,4 +52,14 @@ public class AgencyServiceImpl implements AgencyService {
         newAgency.setUserId(user.getUserID());
         return agencyMapper.save(newAgency);
     }
+
+    @Override
+    public Agency findOneByLoginKey(String loginKey) {
+        return agencyMapper.findOneByLoginKeyAndLoginPwd(loginKey,null);
+    }
+
+    @Override
+    public Agency findByLogin(String loginKey, String loginPwd) {
+        return agencyMapper.findOneByLoginKeyAndLoginPwd(loginKey,loginPwd);
+    }
 }

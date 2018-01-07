@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,7 +36,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         Cookie[] cookies = httpServletRequest.getCookies();
         List<Cookie> list = Arrays.stream(cookies).filter(c -> c.getName().equals("auth")).collect(Collectors.toList());
 
-        AuthVO auth = list != null && list.size()>0 ?JSONObject.toJavaObject(JSON.parseObject(list.get(0).getValue()),AuthVO.class): null;
+        AuthVO auth = list != null && list.size()>0 ?JSONObject.toJavaObject(JSON.parseObject(URLDecoder.decode(list.get(0).getValue(),"UTF-8")),AuthVO.class): null;
         if(auth == null){
             returnJson(JSONObject.toJSONString(new ResultData(ResultCode.paramsError)),httpServletResponse);
             return false;
@@ -57,6 +58,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             returnJson(JSONObject.toJSONString(new ResultData(ResultCode.permissionDenied)),httpServletResponse);
             return false;
         }
+        httpServletRequest.setAttribute("auth",auth);
         return true;
     }
 

@@ -13,6 +13,24 @@
             id = #{id}
     </select>
 
+    <select id="findOneByLoginKeyAndLoginPwd" resultType="com.mtf.admin.entity.Agency">
+        SELECT
+        *
+        FROM
+        agency
+
+        <where>
+          deleted = 0
+          <if test="loginKey != null">
+              AND login_name = #{loginKey}
+          </if>
+            <if test="loginPwd != null">
+                AND password = #{loginPwd}
+            </if>
+        </where>
+
+    </select>
+
     <insert id="save" parameterType="com.mtf.admin.entity.Agency" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
             Agency(
