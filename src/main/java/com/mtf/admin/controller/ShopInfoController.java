@@ -1,6 +1,7 @@
 package com.mtf.admin.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.PageParam;
@@ -31,7 +32,8 @@ public class ShopInfoController extends BaseController {
     public ResultData list(PageParam page) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<ShopInfo> list = shopInfoService.findAll();
-        return success(list);
+        PageInfo<ShopInfo> pageInfo = new PageInfo<ShopInfo>(list);
+        return success(list).set("total",pageInfo.getTotal());
     }
 
     /**
