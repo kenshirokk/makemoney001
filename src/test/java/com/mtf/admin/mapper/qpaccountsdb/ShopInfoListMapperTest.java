@@ -1,6 +1,7 @@
 package com.mtf.admin.mapper.qpaccountsdb;
 
 import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Maps;
 import com.mtf.admin.entity.ShopInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,4 +30,12 @@ public class ShopInfoListMapperTest {
         }
     }
 
+    @Test
+    public void update() {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("itemId", 1);
+        params.put("GoodsNum", 123);
+        params.put("Price", 321);
+        int i = shopInfoListMapper.update(params);
+    }
 }

@@ -71,4 +71,13 @@
                 )
     </insert>
 
+    <select id="findByParentId" resultType="com.mtf.admin.entity.Agency">
+        SELECT
+            *
+        FROM
+            Agency
+        WHERE
+            parent_id = #{parentId}
+    </select>
+
 </mapper>

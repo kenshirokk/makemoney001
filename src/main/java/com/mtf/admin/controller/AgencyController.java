@@ -2,14 +2,15 @@ package com.mtf.admin.controller;
 
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.ResultData;
+import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AgencyService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("agency")
@@ -34,5 +35,17 @@ public class AgencyController extends BaseController {
     public ResultData createAgency(Integer agencyId, Integer userId, String password, String phone) {
         int i = agencyService.createAgency(agencyId, userId, password, phone);
         return i > 0 ? success() : error();
+    }
+
+    /**
+     * 查询我的代理
+     * 也就是parentId = 我 的那些人
+     * @param id
+     * @return
+     */
+    @GetMapping("myAgency/{id}")
+    public ResultData myAgency(@PathVariable("id") Integer id) {
+        List<Agency> list = agencyService.findByParentId(id);
+        return success(list);
     }
 }

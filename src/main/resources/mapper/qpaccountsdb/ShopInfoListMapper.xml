@@ -11,4 +11,19 @@
             ShopInfoList
     </select>
 
+    <update id="update">
+        UPDATE
+            ShopInfoList
+        <set>
+            <if test="GoodsNum != null and GoodsNum != ''">
+                GoodsNum = #{GoodsNum},
+            </if>
+            <if test="Price != null and Price != ''">
+                Price = #{Price},
+            </if>
+        </set>
+        WHERE
+            ItemID = #{itemId}
+    </update>
+
 </mapper>
