@@ -3,11 +3,15 @@ package com.mtf.admin.controller;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.vo.BaseController;
+import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.ShopInfo;
 import com.mtf.admin.service.ShopInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -15,8 +19,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/shopInfo")
 public class ShopInfoController extends BaseController {
-
-    private static final int PAGE_SIZE = 10;
 
     @Autowired
     private ShopInfoService shopInfoService;
@@ -26,8 +28,8 @@ public class ShopInfoController extends BaseController {
      * @return
      */
     @GetMapping
-    public ResultData list(@RequestParam(defaultValue = "1") Integer pageNumber) {
-        PageHelper.startPage(pageNumber, PAGE_SIZE);
+    public ResultData list(PageParam page) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<ShopInfo> list = shopInfoService.findAll();
         return success(list);
     }
