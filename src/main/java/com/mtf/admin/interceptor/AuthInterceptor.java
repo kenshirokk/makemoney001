@@ -2,25 +2,40 @@ package com.mtf.admin.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.mtf.admin.common.annotation.AdminMethod;
+import com.mtf.admin.common.annotation.PublicMethod;
+import com.mtf.admin.common.config.Role;
 import com.mtf.admin.common.util.Token;
 import com.mtf.admin.common.vo.AuthVO;
 import com.mtf.admin.common.vo.ResultCode;
 import com.mtf.admin.common.vo.ResultData;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        String authStr = httpServletRequest.getParameter("auth");
-        AuthVO auth = JSONObject.toJavaObject(JSON.parseObject(authStr),AuthVO.class);
+        HandlerMethod method = (HandlerMethod)o;
+        PublicMethod pub = method.getMethod().getAnnotation(PublicMethod.class);
+        if(pub != null){
+            return true;
+        }
+        Cookie[] cookies = httpServletRequest.getCookies();
+        List<Cookie> list = Arrays.stream(cookies).filter(c -> c.getName().equals("auth")).collect(Collectors.toList());
+
+        AuthVO auth = list != null && list.size()>0 ?JSONObject.toJavaObject(JSON.parseObject(list.get(0).getValue()),AuthVO.class): null;
         if(auth == null){
             returnJson(JSONObject.toJSONString(new ResultData(ResultCode.paramsError)),httpServletResponse);
             return false;
@@ -36,6 +51,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         String serverToken = Token.generate(auth);
         if(!auth.getToken().equals(serverToken)){
             returnJson(JSONObject.toJSONString(new ResultData(ResultCode.authError)),httpServletResponse);
+            return false;
+        }
+        if(!auth.getRole().equals(Role.admin) && method.getMethod().getAnnotation(AdminMethod.class) != null){
+            returnJson(JSONObject.toJSONString(new ResultData(ResultCode.permissionDenied)),httpServletResponse);
             return false;
         }
         return true;

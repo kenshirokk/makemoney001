@@ -11,6 +11,7 @@ public class ResultCode {
     public final static int paramsError = 400;//参数异常
     public final static int authError = 301;//权限验证失败
     public final static int authExpired= 302;//权限过期
+    public final static int permissionDenied = 303;//权限不足
 
     protected ResultCode(){}
 
@@ -21,6 +22,7 @@ public class ResultCode {
         resultMsg.put(paramsError,"参数异常");
         resultMsg.put(authError,"权限验证失败");
         resultMsg.put(authExpired,"权限过期");
+        resultMsg.put(permissionDenied,"权限不足");
     }
 
     public static String get(int key){

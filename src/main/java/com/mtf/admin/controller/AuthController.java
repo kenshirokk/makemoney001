@@ -1,5 +1,6 @@
 package com.mtf.admin.controller;
 
+import com.mtf.admin.common.annotation.PublicMethod;
 import com.mtf.admin.common.config.Role;
 import com.mtf.admin.common.util.Token;
 import com.mtf.admin.common.vo.AuthVO;
@@ -18,6 +19,7 @@ import java.util.Date;
 public class AuthController extends BaseController{
 
     @RequestMapping("get")
+    @PublicMethod
     public ResultData getAuths(
             String authKey,
             String authPass
