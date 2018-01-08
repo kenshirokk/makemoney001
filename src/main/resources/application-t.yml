@@ -1,21 +1,21 @@
 dataSource:
   jeefwtwo:
-    jdbcUrl: jdbc:sqlserver://192.168.0.105:1433;DatabaseName=jeefwtwo
+    jdbcUrl: jdbc:sqlserver://192.168.0.104:1433;DatabaseName=jeefwtwo
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   adminManager:
-    jdbcUrl: jdbc:sqlserver://192.168.0.105:1433;DatabaseName=AdminManager
+    jdbcUrl: jdbc:sqlserver://192.168.0.104:1433;DatabaseName=AdminManager
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   QPAccountsDB:
-    jdbcUrl: jdbc:sqlserver://192.168.0.105:1433;DatabaseName=QPAccountsDB
+    jdbcUrl: jdbc:sqlserver://192.168.0.104:1433;DatabaseName=QPAccountsDB
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   QPPlatformDB:
-    jdbcUrl: jdbc:sqlserver://192.168.0.105:1433;DatabaseName=QPPlatformDB
+    jdbcUrl: jdbc:sqlserver://192.168.0.104:1433;DatabaseName=QPPlatformDB
     username: sa
     password: Passw0rd
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver

@@ -38,17 +38,17 @@ public class ShopInfoController extends BaseController {
 
     /**
      * 修改 商品数量 & 商品价格
-     * @param itemId
-     * @param GoodsNum
-     * @param Price
+     * @param itemID
+     * @param goodsNum
+     * @param price
      * @return
      */
     @PostMapping
-    public ResultData update(Integer itemId, Integer GoodsNum, Integer Price) {
+    public ResultData update(Integer itemID, Integer goodsNum, Integer price) {
         Map<String, Object> params = Maps.newHashMap();
-        params.put("itemId", itemId);
-        params.put("GoodsNum", GoodsNum);
-        params.put("Price", Price);
+        params.put("itemId", itemID);
+        params.put("GoodsNum", goodsNum);
+        params.put("Price", price);
         int i = shopInfoService.update(params);
         return i > 0 ? success() : error();
     }

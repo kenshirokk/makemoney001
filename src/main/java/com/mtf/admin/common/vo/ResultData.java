@@ -24,6 +24,11 @@ public class ResultData<T>{
         this.message = ResultCode.get(code);
     }
 
+    public ResultData(int code,String message){
+        this.code = code;
+        this.message = message;
+    }
+
     public ResultData(Map<String,Object> data){
         this();
         this.data = data;
