@@ -24,6 +24,10 @@ public abstract class BaseController<T>{
         return new ResultData<T>(ResultCode.error);
     }
 
+    protected ResultData<T> error(String message){
+        return new ResultData<T>(ResultCode.error,message);
+    }
+
     protected ResultData<T> success(List<T> list){
         return new ResultData<T>(list);
     }
