@@ -1,5 +1,6 @@
 package com.mtf.admin.service.impl;
 
+import com.mtf.admin.common.util.Cryptography;
 import com.mtf.admin.entity.AccountsInfo;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.mapper.adminmanager.AgencyMapper;
@@ -38,7 +39,7 @@ public class AgencyServiceImpl implements AgencyService {
         newAgency.setAgencyType(agency.getAgencyType() < 3 ? agency.getAgencyType() + 1 : agency.getAgencyType());
         newAgency.setParentId(agency.getId());
         newAgency.setParentNickname(agency.getNickname());
-        newAgency.setPassword(password);
+        newAgency.setPassword(Cryptography.md5(password));
         newAgency.setNickname(user.getNickName());
         newAgency.setAvatar("//TODO");
         newAgency.setPhone(phone);

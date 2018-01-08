@@ -2,13 +2,13 @@ package com.mtf.admin.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mtf.admin.common.annotation.PublicMethod;
+import com.mtf.admin.common.util.Cryptography;
 import com.mtf.admin.common.util.Token;
 import com.mtf.admin.common.vo.AuthVO;
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AgencyService;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +36,7 @@ public class AuthController extends BaseController{
             @RequestParam("authPass")String authPass,
             HttpServletResponse response
     ) throws InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-        Agency loginUser = agencyService.findByLogin(authKey, MD5Encoder.encode(authPass.getBytes()));
+        Agency loginUser = agencyService.findByLogin(authKey, Cryptography.md5(authPass));
         if(loginUser != null){
             AuthVO auth = new AuthVO();
             auth.setUcode(authKey);
