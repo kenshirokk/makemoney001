@@ -49,7 +49,7 @@ public class AuthController extends BaseController{
             response.addCookie(cookie);
             return success(auth);
         }
-        return error();
+        return error("用户名或密码不正确");
     }
 
 
