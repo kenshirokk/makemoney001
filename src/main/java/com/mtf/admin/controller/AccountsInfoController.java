@@ -1,8 +1,10 @@
 package com.mtf.admin.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.vo.BaseController;
+import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.AccountsInfo;
 import com.mtf.admin.service.AccountsInfoService;
@@ -16,21 +18,20 @@ import java.util.Map;
 @RequestMapping("/accountsInfo")
 public class AccountsInfoController extends BaseController {
 
-    private static final int PAGE_SIZE = 10;
-
     @Autowired
     private AccountsInfoService accountsInfoService;
 
     /**
      * 查询所有  列表展示
-     * @param pageNumber
+     * @param page
      * @return
      */
     @GetMapping
-    public ResultData list(@RequestParam(defaultValue = "1") Integer pageNumber) {
-        PageHelper.startPage(pageNumber, PAGE_SIZE);
+    public ResultData list(PageParam page) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<AccountsInfo> list = accountsInfoService.findAll();
-        return success(list);
+        PageInfo<AccountsInfo> pageInfo = new PageInfo<>(list);
+        return success(list).set("total", pageInfo.getTotal());
     }
 
     /**
