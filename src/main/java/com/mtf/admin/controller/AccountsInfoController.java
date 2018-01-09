@@ -28,6 +28,8 @@ public class AccountsInfoController extends BaseController {
      */
     @GetMapping
     public ResultData list(PageParam page) {
+        //TODO 权限
+        //TODO 查询
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<AccountsInfo> list = accountsInfoService.findAll();
         PageInfo<AccountsInfo> pageInfo = new PageInfo<>(list);
