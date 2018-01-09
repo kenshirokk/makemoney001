@@ -40,12 +40,12 @@ public class AgencyController extends BaseController {
     /**
      * 查询我的代理
      * 也就是parentId = 我 的那些人
-     * @param id
      * @return
      */
-    @GetMapping("myAgency/{id}")
-    public ResultData myAgency(@PathVariable("id") Integer id) {
-        List<Agency> list = agencyService.findByParentId(id);
+    @GetMapping("myAgency")
+    public ResultData myAgency() {
+        Agency login = super.getLoginUser();
+        List<Agency> list = agencyService.findByParentId(login.getId());
         return success(list);
     }
 }
