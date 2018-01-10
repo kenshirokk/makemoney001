@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mtf.admin.mapper.adminmanager.BulletinMapper">
+
+    <select id="findAll" resultType="com.mtf.admin.entity.Bulletin">
+        SELECT
+            *
+        FROM
+          bulletin
+    </select>
+
+    <insert id="save" parameterType="com.mtf.admin.entity.Bulletin" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            bulletin(title, content, [desc], image, create_datetime)
+        VALUES
+            (
+            #{title},
+            #{content},
+            #{desc},
+            #{image},
+            GETDATE()
+            )
+    </insert>
+
+    <update id="update" parameterType="com.mtf.admin.entity.Bulletin">
+        UPDATE
+            bulletin
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="desc != null and desc != ''">
+                [desc] = #{desc},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image},
+            </if>
+            update_datetime = GETDATE(),
+        </set>
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM
+            bulletin
+        WHERE
+            id = #{id}
+    </delete>
+
+</mapper>
