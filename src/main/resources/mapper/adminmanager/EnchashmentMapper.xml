@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mtf.admin.mapper.adminmanager.EnchashmentMapper">
+
+    <select id="findAll" resultType="com.mtf.admin.common.vo.EnchashmentVO">
+        SELECT
+            e.id AS id,
+            e.agency_id AS agencyId,
+            e.enchashment_type AS enchashmentType,
+            e.money AS money,
+            e.weixin AS weixin,
+            e.alipay AS alipay,
+            e.bankno AS bankno,
+            e.approve_status,
+            e.create_datetime,
+            e.approve_datetime,
+            a.nickname AS agencyNickname,
+            a.agency_type AS agencyType,
+            a.avatar AS avatar
+        FROM
+            enchashment e
+        INNER JOIN
+            agency a
+        ON e.agency_id = a.id
+        <where>
+            <if test="agencyId != null and agencyId != ''">
+                a.id = #{agencyId}
+            </if>
+            <if test="agencyNickname != null and agencyNickname != ''">
+                and a.nickname like '%' + #{agencyNickname} + '%'
+            </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.mtf.admin.entity.Enchashment">
+        INSERT INTO
+            enchashment ()
+        VALUES (
+
+                )
+    </insert>
+
+    <update id="update" parameterType="com.mtf.admin.entity.Enchashment">
+
+    </update>
+
+</mapper>
