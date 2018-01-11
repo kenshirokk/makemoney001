@@ -32,16 +32,42 @@
         </where>
     </select>
 
-    <insert id="save" parameterType="com.mtf.admin.entity.Enchashment">
+    <insert id="save" parameterType="com.mtf.admin.entity.Enchashment" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-            enchashment ()
-        VALUES (
-
-                )
+            enchashment (
+                agency_id,
+                enchashment_type,
+                money,
+                weixin,
+                alipay,
+                bankno,
+                approve_status,
+                create_datetime
+            )
+        VALUES
+            (
+                #{agencyId},
+                #{enchashmentType},
+                #{money},
+                #{weixin},
+                #{alipay},
+                #{bankno},
+                #{approveStatus},
+                GETDATE()
+            )
     </insert>
 
     <update id="update" parameterType="com.mtf.admin.entity.Enchashment">
-
+        UPDATE
+            enchashment
+        <set>
+            <if test="approveStatus != null and approveStatus != ''">
+                approve_status = #{approveStatus},
+            </if>
+            approve_datetime = GETDATE()
+        </set>
+        WHERE
+            id = #{id}
     </update>
 
 </mapper>

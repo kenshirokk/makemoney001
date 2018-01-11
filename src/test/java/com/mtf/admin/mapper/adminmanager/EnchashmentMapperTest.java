@@ -33,9 +33,22 @@ public class EnchashmentMapperTest {
 
     @Test
     public void save() {
+        Enchashment e = new Enchashment();
+        e.setAgencyId(2);
+        e.setEnchashmentType(3);
+        e.setMoney(666);
+        e.setWeixin("weixin");
+        e.setAlipay("ali");
+        e.setBankno("bankno");
+        e.setApproveStatus(1);
+        int i = enchashmentMapper.save(e);
     }
 
     @Test
     public void update() {
+        Enchashment e = new Enchashment();
+        e.setId(1);
+        e.setApproveStatus(22);
+        int i = enchashmentMapper.update(e);
     }
 }
