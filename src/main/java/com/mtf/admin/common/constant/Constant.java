@@ -15,4 +15,15 @@ public interface Constant {
      * 普通代理
      */
     Integer AGENCY_TYPE_3 = 3;
+
+    /**
+     * 充值类型: 给代理充值
+     */
+    Integer RECORD_TYPE_AGENCY = 1;
+
+    /**
+     * 充值类型: 给玩家充值
+     */
+    Integer RECORD_TYPE_USER = 2;
+
 }
