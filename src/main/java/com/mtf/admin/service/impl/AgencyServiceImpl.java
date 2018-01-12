@@ -42,7 +42,7 @@ public class AgencyServiceImpl implements AgencyService {
         newAgency.setParentNickname(agency.getNickname());
         newAgency.setPassword(Cryptography.md5(password));
         newAgency.setNickname(user.getNickName());
-        newAgency.setAvatar("//TODO");
+//        newAgency.setAvatar("//TODO");
         newAgency.setPhone(phone);
         newAgency.setRoomCard(0);
         newAgency.setCoin(0);
