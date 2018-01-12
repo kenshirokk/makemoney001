@@ -148,4 +148,30 @@
         </where>
     </select>
 
+    <select id="getTreasureById" resultType="com.mtf.admin.entity.Agency">
+        SELECT
+            coin,
+            room_card
+        FROM
+            agency
+    </select>
+
+    <update id="updateCoinMinus">
+        UPDATE
+            agency
+        SET
+            coin -= #{quantity}
+        WHERE
+            id = #{agencyId}
+    </update>
+
+    <update id="updateRoomCardMinus">
+        UPDATE
+            agency
+        SET
+            room_card -= #{quantity}
+        WHERE
+        id = #{agencyId}
+    </update>
+
 </mapper>

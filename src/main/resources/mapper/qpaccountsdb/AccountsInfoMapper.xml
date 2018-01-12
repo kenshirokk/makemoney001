@@ -83,4 +83,22 @@
             ai.UserID = #{userId}
     </select>
 
+    <update id="updateCoinPlus">
+        UPDATE
+            [QPTreasureDB].[dbo].[GameScoreInfo]
+        SET
+            Score += #{quantity}
+        WHERE
+            UserID = #{userId}
+    </update>
+
+    <update id="updateRoomCardPlus">
+        UPDATE
+            [QPTreasureDB].[dbo].[GameScoreInfo]
+        SET
+            InsureScore += #{quantity}
+        WHERE
+            UserID = #{userId}
+    </update>
+
 </mapper>

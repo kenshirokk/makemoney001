@@ -34,4 +34,20 @@ public interface AccountsInfoMapper {
      * @return
      */
     AccountsInfoVO findOne(Integer userId);
+
+    /**
+     * 根据用户id 增加金币
+     * @param userId
+     * @param quantity
+     * @return
+     */
+    int updateCoinPlus(@Param("userId") Integer userId, @Param("quantity") Integer quantity);
+
+    /**
+     * 根据用户id 增加房卡
+     * @param userId
+     * @param quantity
+     * @return
+     */
+    int updateRoomCardPlus(@Param("userId") Integer userId, @Param("quantity") Integer quantity);
 }

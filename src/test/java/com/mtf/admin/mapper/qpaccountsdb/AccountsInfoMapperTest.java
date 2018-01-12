@@ -55,4 +55,16 @@ public class AccountsInfoMapperTest {
         AccountsInfo ai = accountsInfoMapper.findOne(1);
         System.out.println(ai);
     }
+
+    @Test
+    public void updateCoinPlus() {
+        int i = accountsInfoMapper.updateCoinPlus(100, 666);
+        System.out.println(i);
+    }
+
+    @Test
+    public void updateRoomCardPlus() {
+        int i = accountsInfoMapper.updateRoomCardPlus(100, 666);
+        System.out.println(i);
+    }
 }

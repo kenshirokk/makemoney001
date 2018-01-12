@@ -43,4 +43,9 @@ public interface AgencyMapper {
     List<Agency> findAll(@Param("agencyId") Integer agencyId,
                          @Param("level") Integer level,
                          @Param("params") Map<String, Object> params);
+
+    Agency getTreasureById(Integer agencyId);
+
+    int updateCoinMinus(@Param("agencyId") Integer agencyId, @Param("quantity") Integer quantity);
+    int updateRoomCardMinus(@Param("agencyId") Integer agencyId, @Param("quantity") Integer quantity);
 }

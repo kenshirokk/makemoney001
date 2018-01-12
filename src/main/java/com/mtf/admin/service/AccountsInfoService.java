@@ -1,6 +1,8 @@
 package com.mtf.admin.service;
 
 import com.mtf.admin.common.vo.AccountsInfoVO;
+import com.mtf.admin.entity.CoinRecord;
+import com.mtf.admin.entity.RoomCardRecord;
 
 import java.util.List;
 import java.util.Map;
@@ -29,4 +31,7 @@ public interface AccountsInfoService {
      * @return
      */
     AccountsInfoVO findOne(Integer userId);
+
+    int updateCoinPlus(CoinRecord coinRecord);
+    int updateRoomCardPlus(RoomCardRecord roomCardRecord);
 }
