@@ -1,5 +1,6 @@
 package com.mtf.admin.service.impl;
 
+import com.mtf.admin.common.vo.AccountsInfoVO;
 import com.mtf.admin.entity.AccountsInfo;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.mapper.adminmanager.AgencyMapper;
@@ -43,7 +44,7 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
     }
 
     @Override
-    public AccountsInfo findOne(Integer userId) {
+    public AccountsInfoVO findOne(Integer userId) {
         return accountsInfoMapper.findOne(userId);
     }
 }

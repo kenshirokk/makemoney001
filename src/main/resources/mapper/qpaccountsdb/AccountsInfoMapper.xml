@@ -22,14 +22,14 @@
         SELECT
             ai.*,
             t.nickname AS agencyNickname,
-            af.CustomFace AS customFace,
+            af.HeadHttp AS customFace,
             gsi.Score AS score,
             gsi.InsureScore AS insureScore
         FROM
             AccountsInfo ai
         INNER JOIN temp t ON ai.SpreaderID = t.id
         LEFT JOIN [QPTreasureDB].[dbo].[GameScoreInfo] gsi ON ai.UserID = gsi.UserID
-        LEFT JOIN AccountsFace af ON ai.FaceID = af.ID
+        LEFT JOIN IndividualDatum af ON ai.UserID = af.UserID
         <where>
             <if test="level != null">
                 t.level <![CDATA[<=]]> #{level}
@@ -68,13 +68,19 @@
     </update>
 
     <!--根据用户id 查询用户-->
-    <select id="findOne" resultType="com.mtf.admin.entity.AccountsInfo">
+    <select id="findOne" resultType="com.mtf.admin.common.vo.AccountsInfoVO">
         SELECT
-            *
+            ai.UserID AS UserID,
+            ai.NickName AS NickName,
+            id.HeadHttp AS customFace
         FROM
-            AccountsInfo
+            AccountsInfo ai
+        LEFT JOIN
+            IndividualDatum id
+        ON
+            ai.UserID = id.UserID
         WHERE
-            UserID = #{userId}
+            ai.UserID = #{userId}
     </select>
 
 </mapper>

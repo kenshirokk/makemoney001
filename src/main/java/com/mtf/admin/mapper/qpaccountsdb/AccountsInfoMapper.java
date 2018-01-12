@@ -1,5 +1,6 @@
 package com.mtf.admin.mapper.qpaccountsdb;
 
+import com.mtf.admin.common.vo.AccountsInfoVO;
 import com.mtf.admin.entity.AccountsInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,5 @@ public interface AccountsInfoMapper {
      * @param userId
      * @return
      */
-    AccountsInfo findOne(Integer userId);
+    AccountsInfoVO findOne(Integer userId);
 }

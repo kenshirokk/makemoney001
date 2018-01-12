@@ -28,7 +28,7 @@ public class AccountsInfoMapperTest {
 //        params.put("", );
 //        params.put("", );
         PageHelper.startPage(1, 1111);
-        List<AccountsInfo> list = accountsInfoMapper.findAll(9, 4, params);
+        List<AccountsInfo> list = accountsInfoMapper.findAll(17, 4, params);
         for (AccountsInfo ai : list) {
             System.out.println(ai.getUserID() + ai.getNickName() +ai);
         }
@@ -51,6 +51,7 @@ public class AccountsInfoMapperTest {
 
     @Test
     public void findOne() {
-        AccountsInfo one = accountsInfoMapper.findOne(1);
+        AccountsInfo ai = accountsInfoMapper.findOne(1);
+        System.out.println(ai);
     }
 }

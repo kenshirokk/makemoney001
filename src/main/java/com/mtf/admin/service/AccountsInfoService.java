@@ -1,5 +1,6 @@
 package com.mtf.admin.service;
 
+import com.mtf.admin.common.vo.AccountsInfoVO;
 import com.mtf.admin.entity.AccountsInfo;
 
 import java.util.List;
@@ -28,5 +29,5 @@ public interface AccountsInfoService {
      * @param userId
      * @return
      */
-    AccountsInfo findOne(Integer userId);
+    AccountsInfoVO findOne(Integer userId);
 }
