@@ -2,6 +2,7 @@ package com.mtf.admin.mapper.qpaccountsdb;
 
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
+import com.mtf.admin.common.vo.AccountsInfoVO;
 import com.mtf.admin.entity.AccountsInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +29,8 @@ public class AccountsInfoMapperTest {
 //        params.put("", );
 //        params.put("", );
         PageHelper.startPage(1, 1111);
-        List<AccountsInfo> list = accountsInfoMapper.findAll(17, 4, params);
-        for (AccountsInfo ai : list) {
+        List<AccountsInfoVO> list = accountsInfoMapper.findAll(17, 4, params);
+        for (AccountsInfoVO ai : list) {
             System.out.println(ai.getUserID() + ai.getNickName() +ai);
         }
     }
