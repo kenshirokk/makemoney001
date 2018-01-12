@@ -1,7 +1,6 @@
 package com.mtf.admin.service;
 
 import com.mtf.admin.common.vo.AccountsInfoVO;
-import com.mtf.admin.entity.AccountsInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,7 @@ public interface AccountsInfoService {
     /**
      * 查询所有玩家
      */
-    List<AccountsInfo> findAll(Integer agencyId, Integer level, Map<String, Object> params);
+    List<AccountsInfoVO> findAll(Integer agencyId, Integer level, Map<String, Object> params);
 
     /**
      * 更新操作

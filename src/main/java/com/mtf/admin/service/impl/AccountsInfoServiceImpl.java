@@ -1,7 +1,6 @@
 package com.mtf.admin.service.impl;
 
 import com.mtf.admin.common.vo.AccountsInfoVO;
-import com.mtf.admin.entity.AccountsInfo;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.mapper.adminmanager.AgencyMapper;
 import com.mtf.admin.mapper.qpaccountsdb.AccountsInfoMapper;
@@ -23,7 +22,7 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
     private AgencyMapper agencyMapper;
 
     @Override
-    public List<AccountsInfo> findAll(Integer agencyId, Integer level, Map<String, Object> params) {
+    public List<AccountsInfoVO> findAll(Integer agencyId, Integer level, Map<String, Object> params) {
         return accountsInfoMapper.findAll(agencyId, level, params);
     }
 

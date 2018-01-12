@@ -4,10 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.constant.Constant;
+import com.mtf.admin.common.vo.AccountsInfoVO;
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.ResultData;
-import com.mtf.admin.entity.AccountsInfo;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AccountsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +42,8 @@ public class AccountsInfoController extends BaseController {
         params.put("nickname", nickname);
 
         PageHelper.startPage(page);
-        List<AccountsInfo> list = accountsInfoService.findAll(loginUser.getId(), level, params);
-        PageInfo<AccountsInfo> pageInfo = new PageInfo<>(list);
+        List<AccountsInfoVO> list = accountsInfoService.findAll(loginUser.getId(), level, params);
+        PageInfo<AccountsInfoVO> pageInfo = new PageInfo<>(list);
         return success(list).set("total", pageInfo.getTotal());
     }
 
