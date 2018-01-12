@@ -1,6 +1,7 @@
 package com.mtf.admin.mapper.qpaccountsdb;
 
 import com.mtf.admin.entity.AccountsInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,9 @@ public interface AccountsInfoMapper {
     /**
      * 查询所有玩家
      */
-    List<AccountsInfo> findAll();
+    List<AccountsInfo> findAll(@Param("agencyId") Integer agencyId,
+                               @Param("level") Integer level,
+                               @Param("params") Map<String, Object> params);
 
     /**
      * 更新操作

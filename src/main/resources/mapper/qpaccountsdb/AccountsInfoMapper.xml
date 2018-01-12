@@ -5,11 +5,45 @@
 <mapper namespace="com.mtf.admin.mapper.qpaccountsdb.AccountsInfoMapper">
 
     <!--查询所有玩家-->
-    <select id="findAll" resultType="com.mtf.admin.entity.AccountsInfo">
+    <select id="findAll" resultType="com.mtf.admin.common.vo.AccountsInfoVO">
+        WITH
+            temp(id, nickname, level)
+        AS (
+            SELECT
+                id, nickname, 0 AS level
+            FROM [AdminManager].[dbo].[agency]
+            WHERE id = #{agencyId}
+            UNION ALL
+            SELECT
+                a.id, a.nickname, temp.level + 1
+            FROM [AdminManager].[dbo].[agency] a
+            INNER JOIN temp ON a.parent_id = temp.id
+        )
         SELECT
-            *
+            ai.*,
+            t.nickname AS agencyNickname,
+            af.CustomFace AS customFace,
+            gsi.Score AS score,
+            gsi.InsureScore AS insureScore
         FROM
-            AccountsInfo
+            AccountsInfo ai
+        INNER JOIN temp t ON ai.SpreaderID = t.id
+        LEFT JOIN [QPTreasureDB].[dbo].[GameScoreInfo] gsi ON ai.UserID = gsi.UserID
+        LEFT JOIN AccountsFace af ON ai.FaceID = af.ID
+        <where>
+            <if test="level != null">
+                t.level <![CDATA[<=]]> #{level}
+            </if>
+            <if test="params.userId != null and params.userId != ''">
+                AND ai.UserID = #{params.userId}
+            </if>
+            <if test="params.nickname != null and params.nickname != ''">
+                AND ai.NickName LIKE '%' + #{params.nickname} + '%'
+            </if>
+            <if test="params.spreaderId != null and params.spreaderId != ''">
+                AND ai.SpreaderID = #{params.spreaderId}
+            </if>
+        </where>
     </select>
 
     <!--更新金币/房卡-->

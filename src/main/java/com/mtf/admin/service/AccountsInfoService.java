@@ -10,7 +10,7 @@ public interface AccountsInfoService {
     /**
      * 查询所有玩家
      */
-    List<AccountsInfo> findAll();
+    List<AccountsInfo> findAll(Integer agencyId, Integer level, Map<String, Object> params);
 
     /**
      * 更新操作

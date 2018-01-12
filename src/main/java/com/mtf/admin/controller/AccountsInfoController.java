@@ -3,10 +3,12 @@ package com.mtf.admin.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
+import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.AccountsInfo;
+import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AccountsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +29,20 @@ public class AccountsInfoController extends BaseController {
      * @return
      */
     @GetMapping
-    public ResultData list(PageParam page) {
-        //TODO 权限
-        //TODO 查询
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<AccountsInfo> list = accountsInfoService.findAll();
+    public ResultData list(PageParam page, Integer userId, Integer spreaderID, String nickname) {
+        Agency loginUser = getLoginUser();
+        Integer level = null;
+        if (Constant.AGENCY_TYPE_3.equals(loginUser.getAgencyType())) {
+            level = 2;
+        }
+
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("userId", userId);
+        params.put("spreaderID", spreaderID);
+        params.put("nickname", nickname);
+
+        PageHelper.startPage(page);
+        List<AccountsInfo> list = accountsInfoService.findAll(loginUser.getId(), level, params);
         PageInfo<AccountsInfo> pageInfo = new PageInfo<>(list);
         return success(list).set("total", pageInfo.getTotal());
     }

@@ -22,8 +22,8 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
     private AgencyMapper agencyMapper;
 
     @Override
-    public List<AccountsInfo> findAll() {
-        return accountsInfoMapper.findAll();
+    public List<AccountsInfo> findAll(Integer agencyId, Integer level, Map<String, Object> params) {
+        return accountsInfoMapper.findAll(agencyId, level, params);
     }
 
     @Override

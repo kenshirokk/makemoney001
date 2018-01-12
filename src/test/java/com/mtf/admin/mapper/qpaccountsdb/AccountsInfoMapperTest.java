@@ -1,5 +1,6 @@
 package com.mtf.admin.mapper.qpaccountsdb;
 
+import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
 import com.mtf.admin.entity.AccountsInfo;
 import org.junit.Test;
@@ -22,7 +23,15 @@ public class AccountsInfoMapperTest {
 
     @Test
     public void findAll() {
-        List<AccountsInfo> all = accountsInfoMapper.findAll();
+        Map<String, Object> params = Maps.newHashMap();
+//        params.put("userId", 111);
+//        params.put("", );
+//        params.put("", );
+        PageHelper.startPage(1, 1111);
+        List<AccountsInfo> list = accountsInfoMapper.findAll(9, 4, params);
+        for (AccountsInfo ai : list) {
+            System.out.println(ai.getUserID() + ai.getNickName() +ai);
+        }
     }
 
     @Test

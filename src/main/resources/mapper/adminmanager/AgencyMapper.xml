@@ -133,7 +133,7 @@
         FROM
             temp
         <where>
-            <if test="level != null and level != ''">
+            <if test="level != null">
                 level <![CDATA[<=]]> #{level}
             </if>
             <if test="params.agencyId != null and params.agencyId != ''">
