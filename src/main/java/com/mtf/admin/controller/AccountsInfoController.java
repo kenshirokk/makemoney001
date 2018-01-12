@@ -38,7 +38,7 @@ public class AccountsInfoController extends BaseController {
 
         Map<String, Object> params = Maps.newHashMap();
         params.put("userId", userId);
-        params.put("spreaderID", spreaderID);
+        params.put("spreaderId", spreaderID);
         params.put("nickname", nickname);
 
         PageHelper.startPage(page);
