@@ -1,6 +1,11 @@
 package com.mtf.admin.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Maps;
+import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.vo.BaseController;
+import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AgencyService;
@@ -11,9 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("agency")
+@RequestMapping("/agency")
 public class AgencyController extends BaseController {
 
     @Autowired
@@ -26,12 +32,14 @@ public class AgencyController extends BaseController {
      */
     @ApiOperation(value = "创建代理")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "agencyId", value = "当前登录用户id", required = true, paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "userId", value = "玩家用户id", required = true, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "agencyId", value = "当前登录用户id", required = true, paramType = "query", dataType =
+                    "int"),
+            @ApiImplicitParam(name = "userId", value = "玩家用户id", required = true, paramType = "query", dataType =
+                    "int"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "phone", value = "电话号码", required = true, paramType = "query", dataType = "int")
     })
-    @PostMapping
+    @PostMapping("save")
     public ResultData createAgency(Integer agencyId, Integer userId, String password, String phone) {
         int i = agencyService.createAgency(agencyId, userId, password, phone);
         return i > 0 ? success() : error();
@@ -40,12 +48,28 @@ public class AgencyController extends BaseController {
     /**
      * 查询我的代理
      * 也就是parentId = 我 的那些人
+     * 1: 超级管理员查询所有
+     * 2: 超级代理 查询自己所有子孙
+     * 3: 普通代理 查询自己2级子孙(子和孙)
+     *
      * @return
      */
-    @GetMapping("myAgency")
-    public ResultData myAgency() {
-        Agency login = super.getLoginUser();
-        List<Agency> list = agencyService.findByParentId(login.getId());
-        return success(list);
+    @GetMapping
+    public ResultData list(PageParam page, Integer agencyId, Integer parentId, String nickname) {
+        Agency loginUser = super.getLoginUser();
+        Integer level = null;
+        if (Constant.AGENCY_TYPE_3.equals(loginUser.getAgencyType())) {
+            level = 2;
+        }
+
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("agencyId", agencyId);
+        params.put("parentId", parentId);
+        params.put("nickname", nickname);
+
+        PageHelper.startPage(page);
+        List<Agency> list = agencyService.findAll(loginUser.getId(), level, params);
+        PageInfo<Agency> pageInfo = new PageInfo<>(list);
+        return success(list).set("total", pageInfo.getTotal());
     }
 }

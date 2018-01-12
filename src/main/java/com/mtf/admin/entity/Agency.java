@@ -25,7 +25,6 @@ public class Agency implements Serializable {
     private Integer roomCard;       //房卡
     private Integer coin;           //金币
     private Integer agencyBalance;  //代理余额
-    private Integer salaryBalance;  //工资余额
     private Integer disable;        //禁用
     private Integer deleted;        //删除
     private Date createDate;        //创建时间

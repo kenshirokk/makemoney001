@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -46,7 +47,6 @@ public class AgencyServiceImpl implements AgencyService {
         newAgency.setRoomCard(0);
         newAgency.setCoin(0);
         newAgency.setAgencyBalance(0);
-        newAgency.setSalaryBalance(0);
         newAgency.setDisable(0);
         newAgency.setDeleted(0);
         newAgency.setCreateDate(new Date());
@@ -66,7 +66,8 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
-    public List<Agency> findByParentId(Integer parentId) {
-        return agencyMapper.findByParentId(parentId);
+    public List<Agency> findAll(Integer agencyId, Integer level, Map<String, Object> params) {
+        return agencyMapper.findAll(agencyId, level, params);
     }
+
 }

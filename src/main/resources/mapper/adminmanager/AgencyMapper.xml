@@ -20,10 +20,10 @@
         agency
 
         <where>
-          deleted = 0
-          <if test="loginKey != null">
-              AND login_name = #{loginKey}
-          </if>
+            deleted = 0
+            <if test="loginKey != null">
+                AND login_name = #{loginKey}
+            </if>
             <if test="loginPwd != null">
                 AND password = #{loginPwd}
             </if>
@@ -71,13 +71,83 @@
                 )
     </insert>
 
-    <select id="findByParentId" resultType="com.mtf.admin.entity.Agency">
+    <!--递归查询代理人-->
+    <select id="findAll" resultType="com.mtf.admin.entity.Agency">
+        with temp(
+                id,
+                agency_type,
+                parent_id,
+                parent_nickname,
+                nickname,
+                avatar,
+                phone,
+                room_card,
+                coin,
+                agency_balance,
+                [disable],
+                deleted,
+                create_date,
+                creator_id,
+                user_id,
+                level
+                )
+        AS (
+            SELECT
+                id,
+                agency_type,
+                parent_id,
+                parent_nickname,
+                nickname,
+                avatar,
+                phone,
+                room_card,
+                coin,
+                agency_balance,
+                [disable],
+                deleted,
+                create_date,
+                creator_id,
+                user_id,
+                0 AS level
+            FROM agency WHERE id = #{agencyId}
+            UNION ALL
+            SELECT
+                a.id,
+                a.agency_type,
+                a.parent_id,
+                a.parent_nickname,
+                a.nickname,
+                a.avatar,
+                a.phone,
+                a.room_card,
+                a.coin,
+                a.agency_balance,
+                a.[disable],
+                a.deleted,
+                a.create_date,
+                a.creator_id,
+                a.user_id,
+                temp.level + 1
+            FROM agency a INNER JOIN temp on a.parent_id = temp.id
+        )
         SELECT
             *
         FROM
-            Agency
-        WHERE
-            parent_id = #{parentId}
+            temp
+        <where>
+            <if test="level != null and level != ''">
+                level <![CDATA[<=]]> #{level}
+            </if>
+            <if test="params.agencyId != null and params.agencyId != ''">
+                AND id = #{params.agencyId}
+            </if>
+            <if test="params.nickname != null and params.nickname != ''">
+                AND nickname like '%' + #{params.nickname} + '%'
+            </if>
+            <if test="params.parentId != null and params.parentId != ''">
+                AND parent_id = #{params.parentId}
+            </if>
+        </where>
     </select>
 
 </mapper>

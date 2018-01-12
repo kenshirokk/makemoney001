@@ -3,6 +3,7 @@ package com.mtf.admin.service;
 import com.mtf.admin.entity.Agency;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AgencyService {
 
@@ -19,9 +20,16 @@ public interface AgencyService {
     Agency findByLogin(String loginKey,String loginPwd);
 
     /**
-     * 根据parentId 查询 代理列表
-     * @param parentId
+     * 超屌的递归查询
+     * @param agencyId  指定查询谁的下级代理
+     * @param level     指定递归深度 0: 自己, 1: 子级, 2: 子级 孙级
+     * @param params    查询条件  and 关系
+     *                      {
+     *                          agencyId: 代理人id         精确匹配
+     *                          nickname: 代理人昵称       模糊匹配
+     *                          parentId: 父级(推荐人)     精确匹配
+     *                      }
      * @return
      */
-    List<Agency> findByParentId(Integer parentId);
+    List<Agency> findAll(Integer agencyId, Integer level, Map<String, Object> params);
 }

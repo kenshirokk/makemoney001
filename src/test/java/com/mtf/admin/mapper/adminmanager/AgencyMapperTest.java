@@ -1,5 +1,7 @@
 package com.mtf.admin.mapper.adminmanager;
 
+import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Maps;
 import com.mtf.admin.entity.Agency;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,5 +32,18 @@ public class AgencyMapperTest {
         Agency a = new Agency();
         a.setAgencyType(2);
         agencyMapper.save(a);
+    }
+
+    @Test
+    public void findAll() {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("agencyId", 16);
+        params.put("parentId", 9);
+        params.put("nickname", "2");
+        PageHelper.startPage(1, 22).setOrderBy("id DESC");
+        List<Agency> all = agencyMapper.findAll(9, 2, params);
+        for (Agency agency : all) {
+            System.out.println(agency);
+        }
     }
 }
