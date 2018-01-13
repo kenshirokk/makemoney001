@@ -50,4 +50,12 @@ public interface AccountsInfoMapper {
      * @return
      */
     int updateRoomCardPlus(@Param("userId") Integer userId, @Param("quantity") Integer quantity);
+
+    /**
+     * 根据代理id 获得玩家数量(权限)
+     * @param agencyId
+     * @param level
+     * @return
+     */
+    Integer getCount(@Param("agencyId") Integer agencyId, @Param("level") Integer level);
 }

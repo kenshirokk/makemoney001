@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.PageParam;
+import com.mtf.admin.common.vo.PersonalInfoVO;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AgencyService;
@@ -71,5 +72,12 @@ public class AgencyController extends BaseController {
         List<Agency> list = agencyService.findAll(loginUser.getId(), level, params);
         PageInfo<Agency> pageInfo = new PageInfo<>(list);
         return success(list).set("total", pageInfo.getTotal());
+    }
+
+    @GetMapping("personalInfo")
+    public ResultData personalInfo() {
+        Agency loginUser = super.getLoginUser();
+        PersonalInfoVO personalInfoVO = agencyService.personalInfo(loginUser.getId(), loginUser.getAgencyType());
+        return success(personalInfoVO);
     }
 }

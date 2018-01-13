@@ -67,4 +67,10 @@ public class AccountsInfoMapperTest {
         int i = accountsInfoMapper.updateRoomCardPlus(100, 666);
         System.out.println(i);
     }
+
+    @Test
+    public void getCount() {
+        Integer count = accountsInfoMapper.getCount(17, 0);
+        System.out.println(count);
+    }
 }

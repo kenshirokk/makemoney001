@@ -52,4 +52,16 @@ public class AgencyMapperTest {
             System.out.println(agency.getAvatarSrc());
         }
     }
+
+    @Test
+    public void getCount() {
+        Integer count = agencyMapper.getCount(17, 2);
+        System.out.println(count);
+    }
+
+    @Test
+    public void getTotalIncome() {
+        Long totalIncome = agencyMapper.getTotalIncome(17, 0);
+        System.out.println(totalIncome);
+    }
 }
