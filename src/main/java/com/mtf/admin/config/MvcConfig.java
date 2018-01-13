@@ -11,9 +11,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(authInterceptor())
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/swagger*/**");
+        registry.addInterceptor(authInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/swagger*/**");
         super.addInterceptors(registry);
     }
 
