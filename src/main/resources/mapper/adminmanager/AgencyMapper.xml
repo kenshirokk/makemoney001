@@ -154,6 +154,8 @@
             room_card
         FROM
             agency
+        WHERE
+            id = #{agencyId}
     </select>
 
     <update id="updateCoinMinus">

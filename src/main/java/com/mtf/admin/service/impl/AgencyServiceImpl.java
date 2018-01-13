@@ -70,4 +70,9 @@ public class AgencyServiceImpl implements AgencyService {
         return agencyMapper.findAll(agencyId, level, params);
     }
 
+    @Override
+    public Agency findOne(Integer id) {
+        return agencyMapper.findOne(id);
+    }
+
 }

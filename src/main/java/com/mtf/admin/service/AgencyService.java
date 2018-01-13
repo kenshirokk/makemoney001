@@ -32,4 +32,6 @@ public interface AgencyService {
      * @return
      */
     List<Agency> findAll(Integer agencyId, Integer level, Map<String, Object> params);
+
+    Agency findOne(Integer id);
 }

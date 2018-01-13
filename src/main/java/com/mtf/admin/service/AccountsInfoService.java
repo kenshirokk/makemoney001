@@ -32,6 +32,6 @@ public interface AccountsInfoService {
      */
     AccountsInfoVO findOne(Integer userId);
 
-    int updateCoinPlus(CoinRecord coinRecord);
-    int updateRoomCardPlus(RoomCardRecord roomCardRecord);
+    int updateCoinPlus(CoinRecord coinRecord) throws RuntimeException;
+    int updateRoomCardPlus(RoomCardRecord roomCardRecord) throws RuntimeException;
 }

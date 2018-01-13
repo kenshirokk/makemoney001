@@ -12,6 +12,7 @@ import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.CoinRecord;
 import com.mtf.admin.entity.RoomCardRecord;
 import com.mtf.admin.service.AccountsInfoService;
+import com.mtf.admin.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,9 @@ public class AccountsInfoController extends BaseController {
 
     @Autowired
     private AccountsInfoService accountsInfoService;
+
+    @Autowired
+    private AgencyService agencyService;
 
     /**
      * 查询所有  列表展示
@@ -67,7 +71,7 @@ public class AccountsInfoController extends BaseController {
 
         int i = accountsInfoService.updateCoinPlus(cr);
 
-        return i > 2 ? success() : error();
+        return i > 0 ? success() : error("您当前的金币不足");
     }
 
     /**
@@ -87,7 +91,8 @@ public class AccountsInfoController extends BaseController {
         rcr.setQuantity(quantity);
 
         int i = accountsInfoService.updateRoomCardPlus(rcr);
-        return i > 2 ? success() : error();
+
+        return i > 0 ? success() : error("您当前的房卡不足");
     }
 
     /**
@@ -98,6 +103,9 @@ public class AccountsInfoController extends BaseController {
      */
     @PostMapping("updateSpreader")
     public ResultData updateSpreader(Integer userId, Integer spreaderID) {
+        if(agencyService.findOne(spreaderID) == null){
+            return error("推荐人ID不存在");
+        }
         Map<String, Object> params = Maps.newHashMap();
         params.put("userId", userId);
         params.put("spreaderID", spreaderID);

@@ -41,12 +41,6 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
 
     @Override
     public int update(Map<String, Object> params) {
-        Integer spreaderID = Integer.valueOf(String.valueOf(params.get("spreaderID")));
-        Agency one = agencyMapper.findOne(spreaderID);
-        if (one == null) {
-            //代理人不存在
-            return 0;
-        }
         return accountsInfoMapper.update(params);
     }
 
@@ -56,29 +50,35 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
     }
 
     @Override
-    public int updateCoinPlus(CoinRecord coinRecord) {
-        Agency agency = agencyMapper.getTreasureById(coinRecord.getFromAgencyId());
-        if (coinRecord.getQuantity().compareTo(agency.getCoin()) > 0) {
+    public int updateCoinPlus(CoinRecord coinRecord) throws RuntimeException {
+        Agency agency = agencyMapper.findOne(coinRecord.getFromAgencyId());
+        if (agency.getAgencyType() > 1 &&(agency.getCoin() == null || coinRecord.getQuantity().compareTo(agency.getCoin()) > 0)) {
             //余额不足
             return -1;
         }
         int i = agencyMapper.updateCoinMinus(coinRecord.getFromAgencyId(), coinRecord.getQuantity());
         int j = accountsInfoMapper.updateCoinPlus(coinRecord.getToUserId(), coinRecord.getQuantity());
         int k = coinRecordMapper.save(coinRecord);
-        return i + j + k;
+        if(i + j + k > 2){
+            throw new RuntimeException();
+        }
+        return 1;
     }
 
     @Override
-    public int updateRoomCardPlus(RoomCardRecord roomCardRecord) {
-        Agency agency = agencyMapper.getTreasureById(roomCardRecord.getFromAgencyId());
-        if (roomCardRecord.getQuantity().compareTo(agency.getRoomCard()) > 0) {
+    public int updateRoomCardPlus(RoomCardRecord roomCardRecord) throws RuntimeException {
+        Agency agency = agencyMapper.findOne(roomCardRecord.getFromAgencyId());
+        if (agency.getAgencyType() > 1 &&(agency.getRoomCard() == null || roomCardRecord.getQuantity().compareTo(agency.getRoomCard()) > 0)) {
             //余额不足
             return -1;
         }
         int i = agencyMapper.updateRoomCardMinus(roomCardRecord.getFromAgencyId(), roomCardRecord.getQuantity());
         int j = accountsInfoMapper.updateRoomCardPlus(roomCardRecord.getToUserId(), roomCardRecord.getQuantity());
         int k = roomCardRecordMapper.save(roomCardRecord);
-        return i + j + k;
+        if(i + j + k > 2){
+            throw new RuntimeException();
+        }
+        return 1;
     }
 
 }
