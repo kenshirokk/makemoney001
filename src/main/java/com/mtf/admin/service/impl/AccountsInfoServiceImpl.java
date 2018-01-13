@@ -59,7 +59,7 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
         int i = agencyMapper.updateCoinMinus(coinRecord.getFromAgencyId(), coinRecord.getQuantity());
         int j = accountsInfoMapper.updateCoinPlus(coinRecord.getToUserId(), coinRecord.getQuantity());
         int k = coinRecordMapper.save(coinRecord);
-        if(i + j + k > 2){
+        if(i + j + k < 3){
             throw new RuntimeException();
         }
         return 1;
@@ -75,7 +75,7 @@ public class AccountsInfoServiceImpl implements AccountsInfoService {
         int i = agencyMapper.updateRoomCardMinus(roomCardRecord.getFromAgencyId(), roomCardRecord.getQuantity());
         int j = accountsInfoMapper.updateRoomCardPlus(roomCardRecord.getToUserId(), roomCardRecord.getQuantity());
         int k = roomCardRecordMapper.save(roomCardRecord);
-        if(i + j + k > 2){
+        if(i + j + k < 3){
             throw new RuntimeException();
         }
         return 1;
