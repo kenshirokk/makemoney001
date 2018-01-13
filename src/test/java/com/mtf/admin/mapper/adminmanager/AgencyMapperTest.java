@@ -10,9 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +32,6 @@ public class AgencyMapperTest {
     public void save() throws IOException {
         Agency a = new Agency();
         a.setAgencyType(2);
-        File f = new File("d:/1.jpg");
-        a.setAvatar(Files.readAllBytes(f.toPath()));
         agencyMapper.save(a);
     }
 
@@ -49,7 +45,6 @@ public class AgencyMapperTest {
         List<Agency> all = agencyMapper.findAll(9, null, params);
         for (Agency agency : all) {
             System.out.println(agency.getAvatar());
-            System.out.println(agency.getAvatarSrc());
         }
     }
 

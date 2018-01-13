@@ -2,10 +2,14 @@ package com.mtf.admin.service.impl;
 
 import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.util.Cryptography;
+import com.mtf.admin.common.vo.AccountsInfoVO;
 import com.mtf.admin.common.vo.PersonalInfoVO;
-import com.mtf.admin.entity.AccountsInfo;
 import com.mtf.admin.entity.Agency;
+import com.mtf.admin.entity.CoinRecord;
+import com.mtf.admin.entity.RoomCardRecord;
 import com.mtf.admin.mapper.adminmanager.AgencyMapper;
+import com.mtf.admin.mapper.adminmanager.CoinRecordMapper;
+import com.mtf.admin.mapper.adminmanager.RoomCardRecordMapper;
 import com.mtf.admin.mapper.qpaccountsdb.AccountsInfoMapper;
 import com.mtf.admin.mapper.qpplatformdb.OnLineStreamInfoMapper;
 import com.mtf.admin.service.AgencyService;
@@ -27,10 +31,14 @@ public class AgencyServiceImpl implements AgencyService {
     private AccountsInfoMapper accountsInfoMapper;
     @Autowired
     private OnLineStreamInfoMapper onLineStreamInfoMapper;
+    @Autowired
+    private CoinRecordMapper coinRecordMapper;
+    @Autowired
+    private RoomCardRecordMapper roomCardRecordMapper;
 
     @Override
     public int createAgency(Integer agencyId, Integer userId, String password, String phone) {
-        AccountsInfo user = accountsInfoMapper.findOne(userId);
+        AccountsInfoVO user = accountsInfoMapper.findOne(userId);
         if (user == null) {
             //用户不存在
             return 0;
@@ -47,7 +55,7 @@ public class AgencyServiceImpl implements AgencyService {
         newAgency.setParentNickname(agency.getNickname());
         newAgency.setPassword(Cryptography.md5(password));
         newAgency.setNickname(user.getNickName());
-//        newAgency.setAvatar("//TODO");
+        newAgency.setAvatar(user.getCustomFace());
         newAgency.setPhone(phone);
         newAgency.setRoomCard(0);
         newAgency.setCoin(0);
@@ -106,6 +114,32 @@ public class AgencyServiceImpl implements AgencyService {
         vo.setAgencyCount(agencyCount);
         vo.setTotalIncome(totalIncome);
         return vo;
+    }
+
+    @Override
+    public int updateCoinPlus(CoinRecord coinRecord) {
+        Agency agency = agencyMapper.getTreasureById(coinRecord.getFromAgencyId());
+        if (coinRecord.getQuantity().compareTo(agency.getCoin()) > 0) {
+            //余额不足
+            return -1;
+        }
+        int i = agencyMapper.updateCoinMinus(coinRecord.getFromAgencyId(), coinRecord.getQuantity());
+        int j = agencyMapper.updateCoinPlus(coinRecord.getToAgencyId(), coinRecord.getQuantity());
+        int k = coinRecordMapper.save(coinRecord);
+        return i + j + k;
+    }
+
+    @Override
+    public int updateRoomCardPlus(RoomCardRecord roomCardRecord) {
+        Agency agency = agencyMapper.getTreasureById(roomCardRecord.getFromAgencyId());
+        if (roomCardRecord.getQuantity().compareTo(agency.getRoomCard()) > 0) {
+            //余额不足
+            return -1;
+        }
+        int i = agencyMapper.updateRoomCardMinus(roomCardRecord.getFromAgencyId(), roomCardRecord.getQuantity());
+        int j = agencyMapper.updateRoomCardPlus(roomCardRecord.getToAgencyId(), roomCardRecord.getQuantity());
+        int k = roomCardRecordMapper.save(roomCardRecord);
+        return i + j + k;
     }
 
 }

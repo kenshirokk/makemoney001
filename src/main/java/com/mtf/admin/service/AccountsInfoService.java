@@ -32,6 +32,17 @@ public interface AccountsInfoService {
      */
     AccountsInfoVO findOne(Integer userId);
 
+    /**
+     * 增加金币
+     * @param coinRecord
+     * @return
+     */
     int updateCoinPlus(CoinRecord coinRecord);
+
+    /**
+     * 增加房卡
+     * @param roomCardRecord
+     * @return
+     */
     int updateRoomCardPlus(RoomCardRecord roomCardRecord);
 }

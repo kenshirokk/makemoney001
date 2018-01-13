@@ -2,6 +2,8 @@ package com.mtf.admin.service;
 
 import com.mtf.admin.common.vo.PersonalInfoVO;
 import com.mtf.admin.entity.Agency;
+import com.mtf.admin.entity.CoinRecord;
+import com.mtf.admin.entity.RoomCardRecord;
 
 import java.util.List;
 import java.util.Map;
@@ -41,4 +43,18 @@ public interface AgencyService {
      * @return
      */
     PersonalInfoVO personalInfo(Integer agencyId, Integer agencyType);
+
+    /**
+     * 增加金币
+     * @param coinRecord
+     * @return
+     */
+    int updateCoinPlus(CoinRecord coinRecord);
+
+    /**
+     * 增加房卡
+     * @param roomCardRecord
+     * @return
+     */
+    int updateRoomCardPlus(RoomCardRecord roomCardRecord);
 }

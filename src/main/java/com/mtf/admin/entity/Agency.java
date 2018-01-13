@@ -3,7 +3,6 @@ package com.mtf.admin.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -21,7 +20,7 @@ public class Agency implements Serializable {
     private String parentNickname;  //上级代理昵称
     private String password;        //密码
     private String nickname;        //昵称
-    private byte[] avatar;          //头像
+    private String avatar;          //头像
     private String phone;           //电话
     private Integer roomCard;       //房卡
     private Integer coin;           //金币
@@ -32,7 +31,4 @@ public class Agency implements Serializable {
     private Integer creatorId;      //创建者id
     private Integer userId;         //用户id
 
-    public String getAvatarSrc() {
-        return "data:image/jpg;base64," + Base64.getEncoder().encodeToString(avatar);
-    }
 }

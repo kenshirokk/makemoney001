@@ -9,12 +9,17 @@ import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.PersonalInfoVO;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.Agency;
+import com.mtf.admin.entity.CoinRecord;
+import com.mtf.admin.entity.RoomCardRecord;
 import com.mtf.admin.service.AgencyService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -79,5 +84,46 @@ public class AgencyController extends BaseController {
         Agency loginUser = super.getLoginUser();
         PersonalInfoVO personalInfoVO = agencyService.personalInfo(loginUser.getId(), loginUser.getAgencyType());
         return success(personalInfoVO);
+    }
+
+    /**
+     * 更新金币
+     * @param agencyId        被更改代理id
+     * @param quantity      充值金币数量
+     * @return
+     */
+    @PostMapping("updateCoin")
+    public ResultData updateCoin(Integer agencyId, Integer quantity) {
+        Agency loginUser = super.getLoginUser();
+
+        CoinRecord cr = new CoinRecord();
+        cr.setFromAgencyId(loginUser.getId());
+        cr.setRecord_type(Constant.RECORD_TYPE_AGENCY);
+        cr.setToAgencyId(agencyId);
+        cr.setQuantity(quantity);
+
+        int i = agencyService.updateCoinPlus(cr);
+
+        return i > 2 ? success() : error();
+    }
+
+    /**
+     * 更新房卡
+     * @param agencyId
+     * @param quantity
+     * @return
+     */
+    @PostMapping("updateRoomCard")
+    public ResultData updateRoomCard(Integer agencyId, Integer quantity) {
+        Agency loginUser = super.getLoginUser();
+
+        RoomCardRecord rcr = new RoomCardRecord();
+        rcr.setFromAgencyId(loginUser.getId());
+        rcr.setRecord_type(Constant.RECORD_TYPE_AGENCY);
+        rcr.setToAgencyId(agencyId);
+        rcr.setQuantity(quantity);
+
+        int i = agencyService.updateRoomCardPlus(rcr);
+        return i > 2 ? success() : error();
     }
 }
