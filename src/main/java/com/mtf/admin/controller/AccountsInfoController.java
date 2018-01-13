@@ -103,14 +103,15 @@ public class AccountsInfoController extends BaseController {
      */
     @PostMapping("updateSpreader")
     public ResultData updateSpreader(Integer userId, Integer spreaderID) {
-        if(agencyService.findOne(spreaderID) == null){
+        Agency speader = agencyService.findOne(spreaderID);
+        if(speader == null){
             return error("推荐人ID不存在");
         }
         Map<String, Object> params = Maps.newHashMap();
         params.put("userId", userId);
         params.put("spreaderID", spreaderID);
         int i = accountsInfoService.update(params);
-        return i > 0 ? success() : error();
+        return i > 0 ? success().set("nickname",speader.getNickname()) : error();
     }
 
     @GetMapping("{userId}")
