@@ -37,12 +37,12 @@ public interface AccountsInfoService {
      * @param coinRecord
      * @return
      */
-    int updateCoinPlus(CoinRecord coinRecord);
+    int updateCoinPlus(CoinRecord coinRecord) throws RuntimeException;
 
     /**
      * 增加房卡
      * @param roomCardRecord
      * @return
      */
-    int updateRoomCardPlus(RoomCardRecord roomCardRecord);
+    int updateRoomCardPlus(RoomCardRecord roomCardRecord) throws RuntimeException;
 }

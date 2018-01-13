@@ -84,6 +84,11 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
+    public Agency findOne(Integer id) {
+        return agencyMapper.findOne(id);
+    }
+
+    @Override
     public PersonalInfoVO personalInfo(Integer agencyId, Integer agencyType) {
 
         Integer level = null;

@@ -44,6 +44,8 @@ public interface AgencyService {
      */
     PersonalInfoVO personalInfo(Integer agencyId, Integer agencyType);
 
+    Agency findOne(Integer id);
+
     /**
      * 增加金币
      * @param coinRecord
