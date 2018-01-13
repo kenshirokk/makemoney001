@@ -18,6 +18,7 @@
                 a.id, a.nickname, temp.level + 1
             FROM [AdminManager].[dbo].[agency] a
             INNER JOIN temp ON a.parent_id = temp.id
+            WHERE a.deleted = 0 OR a.deleted is null
         )
         SELECT
             ai.*,
@@ -100,5 +101,32 @@
         WHERE
             UserID = #{userId}
     </update>
+
+    <select id="getCount" resultType="_int">
+        WITH
+           temp(id, level)
+        AS (
+        SELECT
+            id, 0 AS level
+        FROM [AdminManager].[dbo].[agency]
+        WHERE id = #{agencyId}
+        UNION ALL
+        SELECT
+            a.id, temp.level + 1
+        FROM [AdminManager].[dbo].[agency] a
+        INNER JOIN temp ON a.parent_id = temp.id
+        WHERE a.deleted = 0 OR a.deleted is null
+        )
+        SELECT
+            count(*)
+        FROM
+            AccountsInfo ai
+        INNER JOIN temp t ON ai.SpreaderID = t.id
+        <where>
+            <if test="level != null">
+                t.level <![CDATA[<=]]> #{level}
+            </if>
+        </where>
+    </select>
 
 </mapper>

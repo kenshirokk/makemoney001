@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mtf.admin.mapper.qpplatformdb.OnLineStreamInfoMapper">
 
-    <select id="findLimitOne" resultType="com.mtf.admin.entity.OnLineStreamInfo">
+    <select id="getOnlineUser" resultType="integer">
         SELECT
-            TOP 1 *
+            TOP 1 OnLineCountSum
         FROM
             OnLineStreamInfo
+        ORDER BY
+            InsertDateTime DESC
     </select>
 
 </mapper>

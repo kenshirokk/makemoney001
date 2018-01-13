@@ -133,8 +133,10 @@
         FROM
             temp
         <where>
+                (deleted = 0 or deleted is null)
+                AND level <![CDATA[<>]]> 0
             <if test="level != null">
-                level <![CDATA[<=]]> #{level}
+                AND level <![CDATA[<=]]> #{level}
             </if>
             <if test="params.agencyId != null and params.agencyId != ''">
                 AND id = #{params.agencyId}
@@ -158,6 +160,24 @@
             id = #{agencyId}
     </select>
 
+    <update id="updateCoinPlus">
+        UPDATE
+            agency
+        SET
+            coin += #{quantity}
+        WHERE
+        id = #{agencyId}
+    </update>
+
+    <update id="updateRoomCardPlus">
+        UPDATE
+            agency
+        SET
+            room_card += #{quantity}
+        WHERE
+        id = #{agencyId}
+    </update>
+
     <update id="updateCoinMinus">
         UPDATE
             agency
@@ -175,5 +195,86 @@
         WHERE
         id = #{agencyId}
     </update>
+
+    <select id="getCoinSumByAgencyId" resultType="_long">
+        SELECT
+            sum(quantity)
+        FROM
+            coin_record
+        WHERE
+            from_agency_id = #{agencyId}
+    </select>
+
+    <select id="getRoomCardSumByAgencyId" resultType="_long">
+        SELECT
+            sum(quantity)
+        FROM
+            room_card_record
+        WHERE
+            from_agency_id = #{agencyId}
+    </select>
+
+    <select id="getCount" resultType="_int">
+        with temp(
+                id,
+                parent_id,
+                deleted,
+                level
+                )
+        AS (
+        SELECT
+            id,
+            parent_id,
+            deleted,
+            0 AS level
+        FROM agency WHERE id = #{agencyId}
+        UNION ALL
+        SELECT
+            a.id,
+            a.parent_id,
+            a.deleted,
+            temp.level + 1
+        FROM agency a INNER JOIN temp on a.parent_id = temp.id
+        )
+        SELECT
+            count(*)
+        FROM
+            temp
+        <where>
+            (deleted = 0 or deleted is null)
+            AND level <![CDATA[<>]]> 0
+            <if test="level != null">
+                AND level <![CDATA[<=]]> #{level}
+            </if>
+        </where>
+    </select>
+
+    <select id="getTotalIncome" resultType="_long">
+        WITH
+            temp(id, level)
+        AS (
+        SELECT
+            id, 0 AS level
+        FROM agency
+        WHERE id = #{agencyId}
+        UNION ALL
+        SELECT
+            a.id, temp.level + 1
+        FROM agency a
+        INNER JOIN temp ON a.parent_id = temp.id
+        WHERE a.deleted = 0 OR a.deleted is null
+        )
+        SELECT
+            ISNULL(sum(o.CostMoney), 0)
+        FROM
+            [QPAccountsDB].[dbo].[AccountsInfo] ai
+        INNER JOIN temp t ON ai.SpreaderID = t.id
+        INNER JOIN [QPRecordDB].[dbo].[RecordBuyOder] o ON o.UserID = ai.UserID
+        <where>
+            <if test="level != null">
+                t.level <![CDATA[<=]]> #{level}
+            </if>
+        </where>
+    </select>
 
 </mapper>

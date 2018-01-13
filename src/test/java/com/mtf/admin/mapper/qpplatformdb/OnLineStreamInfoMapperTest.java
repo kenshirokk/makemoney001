@@ -1,6 +1,5 @@
 package com.mtf.admin.mapper.qpplatformdb;
 
-import com.mtf.admin.entity.OnLineStreamInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,6 @@ public class OnLineStreamInfoMapperTest {
 
     @Test
     public void findLimitOne() {
-        OnLineStreamInfo limitOne = onLineStreamInfoMapper.findLimitOne();
+        Integer limitOne = onLineStreamInfoMapper.getOnlineUser();
     }
 }

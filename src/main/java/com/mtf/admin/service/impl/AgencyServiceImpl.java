@@ -1,10 +1,13 @@
 package com.mtf.admin.service.impl;
 
+import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.util.Cryptography;
+import com.mtf.admin.common.vo.PersonalInfoVO;
 import com.mtf.admin.entity.AccountsInfo;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.mapper.adminmanager.AgencyMapper;
 import com.mtf.admin.mapper.qpaccountsdb.AccountsInfoMapper;
+import com.mtf.admin.mapper.qpplatformdb.OnLineStreamInfoMapper;
 import com.mtf.admin.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,8 @@ public class AgencyServiceImpl implements AgencyService {
     private AgencyMapper agencyMapper;
     @Autowired
     private AccountsInfoMapper accountsInfoMapper;
+    @Autowired
+    private OnLineStreamInfoMapper onLineStreamInfoMapper;
 
     @Override
     public int createAgency(Integer agencyId, Integer userId, String password, String phone) {
@@ -73,6 +78,39 @@ public class AgencyServiceImpl implements AgencyService {
     @Override
     public Agency findOne(Integer id) {
         return agencyMapper.findOne(id);
+    }
+
+    @Override
+    public PersonalInfoVO personalInfo(Integer agencyId, Integer agencyType) {
+
+        Integer level = null;
+        if (Constant.AGENCY_TYPE_3.equals(agencyType)) {
+            level = 2;
+        }
+        Agency agency = agencyMapper.findOne(agencyId);
+
+        //出售金币总数
+        Long coin = agencyMapper.getCoinSumByAgencyId(agencyId);
+        //出售房卡总数
+        Long roomCard = agencyMapper.getRoomCardSumByAgencyId(agencyId);
+        //在线玩家数量
+        Integer onlineUser = onLineStreamInfoMapper.getOnlineUser();
+        //代理数量(根据权限)
+        Integer agencyCount = agencyMapper.getCount(agencyId, level);
+        //玩家数量(根据权限)
+        Integer userCount = accountsInfoMapper.getCount(agencyId, level);
+        //平台总收入(根据权限)
+        Long totalIncome = agencyMapper.getTotalIncome(agencyId, level);
+
+        PersonalInfoVO vo = new PersonalInfoVO();
+        vo.setPhone(agency.getPhone());
+        vo.setCoinSum(coin);
+        vo.setRoomCardSum(roomCard);
+        vo.setOnlineUserCount(onlineUser);
+        vo.setUserCount(userCount);
+        vo.setAgencyCount(agencyCount);
+        vo.setTotalIncome(totalIncome);
+        return vo;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.mtf.admin.service;
 
+import com.mtf.admin.common.vo.PersonalInfoVO;
 import com.mtf.admin.entity.Agency;
 
 import java.util.List;
@@ -32,6 +33,14 @@ public interface AgencyService {
      * @return
      */
     List<Agency> findAll(Integer agencyId, Integer level, Map<String, Object> params);
+
+    /**
+     * 首页 个人信息
+     * @param agencyId
+     * @param agencyType
+     * @return
+     */
+    PersonalInfoVO personalInfo(Integer agencyId, Integer agencyType);
 
     Agency findOne(Integer id);
 }
