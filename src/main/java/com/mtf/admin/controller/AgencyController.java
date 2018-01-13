@@ -104,7 +104,7 @@ public class AgencyController extends BaseController {
 
         int i = agencyService.updateCoinPlus(cr);
 
-        return i > 2 ? success() : error();
+        return i > 0 ? success() : error("您当前的金币不足");
     }
 
     /**
@@ -124,6 +124,6 @@ public class AgencyController extends BaseController {
         rcr.setQuantity(quantity);
 
         int i = agencyService.updateRoomCardPlus(rcr);
-        return i > 2 ? success() : error();
+        return i > 0 ? success() : error("您当前的房卡不足");
     }
 }

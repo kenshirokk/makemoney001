@@ -122,29 +122,35 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
-    public int updateCoinPlus(CoinRecord coinRecord) {
+    public int updateCoinPlus(CoinRecord coinRecord) throws RuntimeException {
         Agency agency = agencyMapper.getTreasureById(coinRecord.getFromAgencyId());
-        if (coinRecord.getQuantity().compareTo(agency.getCoin()) > 0) {
+        if (agency.getAgencyType() > 1 &&(agency.getCoin() == null || coinRecord.getQuantity().compareTo(agency.getCoin()) > 0)) {
             //余额不足
             return -1;
         }
         int i = agencyMapper.updateCoinMinus(coinRecord.getFromAgencyId(), coinRecord.getQuantity());
         int j = agencyMapper.updateCoinPlus(coinRecord.getToAgencyId(), coinRecord.getQuantity());
         int k = coinRecordMapper.save(coinRecord);
-        return i + j + k;
+        if(i + j + k < 3){
+            throw new RuntimeException();
+        }
+        return 1;
     }
 
     @Override
-    public int updateRoomCardPlus(RoomCardRecord roomCardRecord) {
+    public int updateRoomCardPlus(RoomCardRecord roomCardRecord) throws RuntimeException {
         Agency agency = agencyMapper.getTreasureById(roomCardRecord.getFromAgencyId());
-        if (roomCardRecord.getQuantity().compareTo(agency.getRoomCard()) > 0) {
+        if (agency.getAgencyType() > 1 &&(agency.getRoomCard() == null || roomCardRecord.getQuantity().compareTo(agency.getRoomCard()) > 0)) {
             //余额不足
             return -1;
         }
         int i = agencyMapper.updateRoomCardMinus(roomCardRecord.getFromAgencyId(), roomCardRecord.getQuantity());
         int j = agencyMapper.updateRoomCardPlus(roomCardRecord.getToAgencyId(), roomCardRecord.getQuantity());
         int k = roomCardRecordMapper.save(roomCardRecord);
-        return i + j + k;
+        if(i + j + k < 3){
+            throw new RuntimeException();
+        }
+        return 1;
     }
 
 }
