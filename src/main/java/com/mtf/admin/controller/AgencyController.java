@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.constant.Constant;
+import com.mtf.admin.common.util.Cryptography;
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.PersonalInfoVO;
@@ -152,5 +153,14 @@ public class AgencyController extends BaseController {
         params.put("disable", 666);
         int i = agencyService.update(params);
         return i > 0 ? success() : error("更新失败");
+    }
+
+    @PostMapping("updatePassword")
+    public ResultData updatePassword(Integer agencyId, String password) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("agencyId", agencyId);
+        params.put("password", Cryptography.md5(password));
+        int i = agencyService.update(params);
+        return i > 0 ? success() : error();
     }
 }

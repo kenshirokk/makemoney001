@@ -291,6 +291,9 @@
             <if test="disable != null">
                 disable = CASE WHEN disable = 0 THEN 1 ELSE 0 END
             </if>
+            <if test="password != null and password != ''">
+                password = #{password}
+            </if>
         </set>
         WHERE
             id = #{agencyId}

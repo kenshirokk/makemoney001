@@ -25,3 +25,7 @@ CREATE TABLE AdminManager.dbo.room_card_record
     quantity INT,
     trans_datetime DATETIME
 );
+ALTER TABLE AdminManager.dbo.agency DROP COLUMN avatar;
+
+ALTER TABLE AdminManager.dbo.agency ADD avatar VARCHAR(MAX) NULL;
+
