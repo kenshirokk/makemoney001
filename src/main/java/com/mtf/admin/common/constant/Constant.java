@@ -26,4 +26,19 @@ public interface Constant {
      */
     Integer RECORD_TYPE_USER = 2;
 
+    /**
+     * 审批状态  提交(审批中/待审批)
+     */
+    Integer ENCHASHMENT_STATUS_SUBMIT = 1;
+
+    /**
+     * 审批状态 通过
+     */
+    Integer ENCHASHMENT_STATUS_PASS = 1;
+
+    /**
+     * 审批状态 拒绝
+     */
+    Integer ENCHASHMENT_STATUS_REJECT = 1;
+
 }

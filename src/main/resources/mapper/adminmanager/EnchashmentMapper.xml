@@ -52,7 +52,7 @@
                 #{weixin},
                 #{alipay},
                 #{bankno},
-                #{approveStatus},
+                1,
                 GETDATE()
             )
     </insert>
