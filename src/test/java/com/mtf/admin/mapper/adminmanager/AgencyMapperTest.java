@@ -59,4 +59,13 @@ public class AgencyMapperTest {
         Long totalIncome = agencyMapper.getTotalIncome(17, 0);
         System.out.println(totalIncome);
     }
+
+    @Test
+    public void update() {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("agencyId", 16);
+        params.put("agencyType", 2);
+        int i = agencyMapper.update(params);
+
+    }
 }

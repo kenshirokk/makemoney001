@@ -112,4 +112,11 @@ public interface AgencyMapper {
      * @return
      */
     Long getTotalIncome(@Param("agencyId") Integer agencyId, @Param("level") Integer level);
+
+    /**
+     * 更新代理级别
+     * @param params
+     * @return
+     */
+    int update(Map<String, Object> params);
 }

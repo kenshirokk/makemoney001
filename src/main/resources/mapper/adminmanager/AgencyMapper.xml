@@ -277,4 +277,16 @@
         </where>
     </select>
 
+    <update id="update">
+        UPDATE
+            agency
+        <set>
+            <if test="agencyType != null and agencyType != ''">
+                agency_type = #{agencyType}
+            </if>
+        </set>
+        WHERE
+            id = #{agencyId}
+    </update>
+
 </mapper>

@@ -126,4 +126,13 @@ public class AgencyController extends BaseController {
         int i = agencyService.updateRoomCardPlus(rcr);
         return i > 0 ? success() : error("您当前的房卡不足");
     }
+
+    @PostMapping("update")
+    public ResultData update(Integer agencyId, Integer agencyType) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("agencyId", agencyId);
+        params.put("agencyType", agencyType);
+        int i = agencyService.update(params);
+        return i > 0 ? success() : error("更新失败");
+    }
 }

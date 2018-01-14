@@ -59,4 +59,11 @@ public interface AgencyService {
      * @return
      */
     int updateRoomCardPlus(RoomCardRecord roomCardRecord) throws RuntimeException;
+
+    /**
+     * 更新代理级别
+     * @param params
+     * @return
+     */
+    int update(Map<String, Object> params);
 }
