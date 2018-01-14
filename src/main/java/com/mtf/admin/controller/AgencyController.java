@@ -127,11 +127,29 @@ public class AgencyController extends BaseController {
         return i > 0 ? success() : error("您当前的房卡不足");
     }
 
-    @PostMapping("update")
-    public ResultData update(Integer agencyId, Integer agencyType) {
+    @PostMapping("updateAgencyType")
+    public ResultData updateAgencyType(Integer agencyId, Integer agencyType) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("agencyId", agencyId);
         params.put("agencyType", agencyType);
+        int i = agencyService.update(params);
+        return i > 0 ? success() : error("更新失败");
+    }
+
+    @PostMapping("delete")
+    public ResultData delete(Integer agencyId) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("agencyId", agencyId);
+        params.put("deleted", 1);
+        int i = agencyService.update(params);
+        return i > 0 ? success() : error("更新失败");
+    }
+
+    @PostMapping("toggleDisable")
+    public ResultData toggleDisable(Integer agencyId) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("agencyId", agencyId);
+        params.put("disable", 666);
         int i = agencyService.update(params);
         return i > 0 ? success() : error("更新失败");
     }

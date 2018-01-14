@@ -281,8 +281,14 @@
         UPDATE
             agency
         <set>
-            <if test="agencyType != null and agencyType != ''">
-                agency_type = #{agencyType}
+            <if test="agencyType != null">
+                agency_type = #{agencyType},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="disable != null">
+                disable = CASE WHEN disable = 0 THEN 1 ELSE 0 END
             </if>
         </set>
         WHERE

@@ -153,4 +153,9 @@ public class AgencyServiceImpl implements AgencyService {
         return 1;
     }
 
+    @Override
+    public int update(Map<String, Object> params) {
+        return agencyMapper.update(params);
+    }
+
 }

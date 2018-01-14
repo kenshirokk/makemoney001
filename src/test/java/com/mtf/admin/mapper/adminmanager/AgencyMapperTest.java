@@ -65,6 +65,8 @@ public class AgencyMapperTest {
         Map<String, Object> params = Maps.newHashMap();
         params.put("agencyId", 16);
         params.put("agencyType", 2);
+        params.put("deleted", 3);
+        params.put("disable", 2);
         int i = agencyMapper.update(params);
 
     }
