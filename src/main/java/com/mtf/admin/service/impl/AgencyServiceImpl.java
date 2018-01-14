@@ -123,7 +123,7 @@ public class AgencyServiceImpl implements AgencyService {
 
     @Override
     public int updateCoinPlus(CoinRecord coinRecord) throws RuntimeException {
-        Agency agency = agencyMapper.getTreasureById(coinRecord.getFromAgencyId());
+        Agency agency = agencyMapper.findOne(coinRecord.getFromAgencyId());
         if (agency.getAgencyType() > 1 &&(agency.getCoin() == null || coinRecord.getQuantity().compareTo(agency.getCoin()) > 0)) {
             //余额不足
             return -1;
@@ -139,7 +139,7 @@ public class AgencyServiceImpl implements AgencyService {
 
     @Override
     public int updateRoomCardPlus(RoomCardRecord roomCardRecord) throws RuntimeException {
-        Agency agency = agencyMapper.getTreasureById(roomCardRecord.getFromAgencyId());
+        Agency agency = agencyMapper.findOne(roomCardRecord.getFromAgencyId());
         if (agency.getAgencyType() > 1 &&(agency.getRoomCard() == null || roomCardRecord.getQuantity().compareTo(agency.getRoomCard()) > 0)) {
             //余额不足
             return -1;
