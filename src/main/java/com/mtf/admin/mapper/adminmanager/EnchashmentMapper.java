@@ -1,6 +1,7 @@
 package com.mtf.admin.mapper.adminmanager;
 
 import com.mtf.admin.entity.Enchashment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,4 +29,7 @@ public interface EnchashmentMapper {
      * @return
      */
     int update(Enchashment enchashment);
+
+    Integer getMoneySumByAgencyIdAndTypeId(@Param("agencyId") Integer agencyId,
+                                           @Param("enchashmentType") Integer enchashmentType);
 }

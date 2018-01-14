@@ -70,4 +70,15 @@
             id = #{id}
     </update>
 
+    <select id="getMoneySumByAgencyIdAndTypeId" resultType="_int">
+        SELECT
+            ISNULL(sum(money), 0)
+        FROM
+            enchashment
+        WHERE
+            agency_id = #{agencyId}
+        AND
+            enchashment_type = #{enchashmentType}
+    </select>
+
 </mapper>

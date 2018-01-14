@@ -153,7 +153,8 @@
     <select id="getTreasureById" resultType="com.mtf.admin.entity.Agency">
         SELECT
             coin,
-            room_card
+            room_card,
+            agency_balance
         FROM
             agency
         WHERE
