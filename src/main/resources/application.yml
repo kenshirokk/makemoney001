@@ -10,3 +10,4 @@ mybatis:
     map-underscore-to-camel-case: true
 config:
   mackey: a6d0cbb00ebd279847fc4a79a9b4d845
+  uploadPath: d:/upload/
