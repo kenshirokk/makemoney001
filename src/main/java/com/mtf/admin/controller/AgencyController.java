@@ -43,12 +43,14 @@ public class AgencyController extends BaseController {
     })
     @PostMapping("save")
     public ResultData createAgency( Integer userId, String password, String phone) {
-        Agency valiAgency = agencyService.finByUserId(userId);
-        if(valiAgency != null){
-            return error("这个代理已经存在");
+        synchronized ("createAgency_"+userId){
+            Agency valiAgency = agencyService.finByUserId(userId);
+            if(valiAgency != null){
+                return error("这个代理已经存在");
+            }
+            int i = agencyService.createAgency(super.getLoginUser().getId(), userId, password, phone);
+            return i > 0 ? success() : error();
         }
-        int i = agencyService.createAgency(super.getLoginUser().getId(), userId, password, phone);
-        return i > 0 ? success() : error();
     }
 
     @GetMapping("findByUserId/{userId}")
