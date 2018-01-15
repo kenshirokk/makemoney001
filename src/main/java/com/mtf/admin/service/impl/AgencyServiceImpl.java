@@ -158,4 +158,9 @@ public class AgencyServiceImpl implements AgencyService {
         return agencyMapper.update(params);
     }
 
+    @Override
+    public Agency finByUserId(Integer userId) {
+        return agencyMapper.finByUserId(userId);
+    }
+
 }

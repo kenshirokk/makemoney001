@@ -122,4 +122,8 @@ public interface AgencyMapper {
     int update(Map<String, Object> params);
 
     List<MoneyFlowVO> getMoneyFlowVO(Integer agencyId, Integer year);
+
+
+
+    Agency finByUserId(Integer userId);
 }

@@ -66,4 +66,6 @@ public interface AgencyService {
      * @return
      */
     int update(Map<String, Object> params);
+
+    Agency finByUserId(Integer userId);
 }
