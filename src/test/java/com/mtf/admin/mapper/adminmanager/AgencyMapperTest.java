@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("k")
+@Transactional
 public class AgencyMapperTest {
 
     @Autowired

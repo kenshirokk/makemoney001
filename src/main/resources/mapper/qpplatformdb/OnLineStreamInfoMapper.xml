@@ -6,7 +6,7 @@
         SELECT
             TOP 1 OnLineCountSum
         FROM
-            OnLineStreamInfo
+            [QPPlatformDB].[dbo].[OnLineStreamInfo]
         ORDER BY
             InsertDateTime DESC
     </select>

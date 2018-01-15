@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("k")
+@Transactional
 public class BulletinMapperTest {
 
     @Autowired
@@ -32,8 +32,7 @@ public class BulletinMapperTest {
         b.setTitle("test");
         b.setContent("cont");
         b.setDesc("ddd");
-        File f = new File("e:/1.jpg");
-        b.setImage(Files.readAllBytes(f.toPath()));
+        b.setImage("image.....");
         int i = bulletinMapper.save(b);
     }
 
@@ -44,8 +43,7 @@ public class BulletinMapperTest {
         b.setTitle("newtitle");
         b.setContent("newcont");
         b.setDesc("newddd");
-        File f = new File("e:/2.jpg");
-        b.setImage(Files.readAllBytes(f.toPath()));
+        b.setImage("image.....");
         int i = bulletinMapper.update(b);
     }
 

@@ -26,6 +26,7 @@ CREATE TABLE AdminManager.dbo.room_card_record
     trans_datetime DATETIME
 );
 ALTER TABLE AdminManager.dbo.agency DROP COLUMN avatar;
-
 ALTER TABLE AdminManager.dbo.agency ADD avatar VARCHAR(MAX) NULL;
 
+ALTER TABLE AdminManager.dbo.bulletin DROP COLUMN image;
+ALTER TABLE AdminManager.dbo.bulletin ADD image VARCHAR(MAX) NULL;;

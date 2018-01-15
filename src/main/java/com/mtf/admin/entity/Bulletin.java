@@ -11,7 +11,7 @@ public class Bulletin implements Serializable {
     private String title;
     private String content;
     private String desc;
-    private byte[] image;
+    private String image;
     private Date createDatetime;
     private Date updateDatetime;
 }

@@ -8,12 +8,12 @@
         SELECT
             *
         FROM
-            ShopInfoList
+            [QPAccountsDB].[dbo].[ShopInfoList]
     </select>
 
     <update id="update">
         UPDATE
-            ShopInfoList
+            [QPAccountsDB].[dbo].[ShopInfoList]
         <set>
             <if test="GoodsNum != null and GoodsNum != ''">
                 GoodsNum = #{GoodsNum},

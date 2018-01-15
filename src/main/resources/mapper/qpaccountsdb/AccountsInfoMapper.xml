@@ -27,10 +27,10 @@
             gsi.Score AS score,
             gsi.InsureScore AS insureScore
         FROM
-            AccountsInfo ai
+            [QPAccountsDB].[dbo].[AccountsInfo] ai
         INNER JOIN temp t ON ai.SpreaderID = t.id
         LEFT JOIN [QPTreasureDB].[dbo].[GameScoreInfo] gsi ON ai.UserID = gsi.UserID
-        LEFT JOIN IndividualDatum af ON ai.UserID = af.UserID
+        LEFT JOIN [QPAccountsDB].[dbo].[IndividualDatum] af ON ai.UserID = af.UserID
         <where>
             <if test="level != null">
                 t.level <![CDATA[<=]]> #{level}
@@ -50,7 +50,7 @@
     <!--更新金币/房卡-->
     <update id="updatePlus">
         UPDATE
-            AccountsInfo
+            [QPAccountsDB].[dbo].[AccountsInfo]
         <set>
             GameID = GameID,
         </set>
@@ -61,7 +61,7 @@
     <!--修改推荐人id-->
     <update id="update">
         UPDATE
-            AccountsInfo
+            [QPAccountsDB].[dbo].[AccountsInfo]
         SET
             SpreaderID = #{spreaderID}
         WHERE
@@ -75,9 +75,9 @@
             ai.NickName AS NickName,
             id.HeadHttp AS customFace
         FROM
-            AccountsInfo ai
+            [QPAccountsDB].[dbo].[AccountsInfo] ai
         LEFT JOIN
-            IndividualDatum id
+            [QPAccountsDB].[dbo].[IndividualDatum] id
         ON
             ai.UserID = id.UserID
         WHERE
@@ -120,7 +120,7 @@
         SELECT
             count(*)
         FROM
-            AccountsInfo ai
+            [QPAccountsDB].[dbo].[AccountsInfo] ai
         INNER JOIN temp t ON ai.SpreaderID = t.id
         <where>
             <if test="level != null">
