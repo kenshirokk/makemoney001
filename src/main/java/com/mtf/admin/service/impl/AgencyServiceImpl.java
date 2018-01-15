@@ -2,10 +2,7 @@ package com.mtf.admin.service.impl;
 
 import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.util.Cryptography;
-import com.mtf.admin.common.vo.AccountsInfoVO;
-import com.mtf.admin.common.vo.MoneyFlowVO;
-import com.mtf.admin.common.vo.PersonalInfoVO;
-import com.mtf.admin.common.vo.SellRecordVO;
+import com.mtf.admin.common.vo.*;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.CoinRecord;
 import com.mtf.admin.entity.RoomCardRecord;
@@ -168,6 +165,11 @@ public class AgencyServiceImpl implements AgencyService {
     @Override
     public List<SellRecordVO> getSellRecordVO(Integer agencyId, Integer directAgencyId) {
         return agencyMapper.getSellRecordVO(agencyId, directAgencyId);
+    }
+
+    @Override
+    public List<PerformanceVO> getPerformanceVO(Integer agencyId, Integer year) {
+        return agencyMapper.getPerformanceVO(agencyId, year);
     }
 
 }

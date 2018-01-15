@@ -1,6 +1,7 @@
 package com.mtf.admin.service;
 
 import com.mtf.admin.common.vo.MoneyFlowVO;
+import com.mtf.admin.common.vo.PerformanceVO;
 import com.mtf.admin.common.vo.PersonalInfoVO;
 import com.mtf.admin.common.vo.SellRecordVO;
 import com.mtf.admin.entity.Agency;
@@ -84,4 +85,12 @@ public interface AgencyService {
      * @return
      */
     List<SellRecordVO> getSellRecordVO(Integer agencyId, Integer directAgencyId);
+
+    /**
+     * 业绩
+     * @param agencyId
+     * @param year
+     * @return
+     */
+    List<PerformanceVO> getPerformanceVO(Integer agencyId, Integer year);
 }

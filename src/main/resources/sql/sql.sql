@@ -36,3 +36,13 @@ CREATE TABLE AdminManager.dbo.month_view
     month INT
 );
 INSERT INTO month_view VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12);
+
+CREATE TABLE AdminManager.dbo.performance
+(
+    id                  INT PRIMARY KEY IDENTITY,
+    agency_id            INT,
+    level               INT,
+    money               INT,
+    cash_back_datetime  DATETIME,
+    record_buy_order_id INT
+);

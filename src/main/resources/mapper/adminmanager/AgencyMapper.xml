@@ -362,4 +362,21 @@
         </where>
     </select>
 
+    <select id="getPerformanceVO" resultType="com.mtf.admin.common.vo.PerformanceVO">
+        SELECT
+            mv.month AS month,
+            sum(
+                CASE WHEN level = 1 THEN isnull(money, 0) ELSE 0 END
+            ) AS levelOneMoney,
+            sum(
+                CASE WHEN level = 2 THEN isnull(money, 0) ELSE 0 END
+            ) AS levelTwoMoney
+        FROM
+            (SELECT * FROM performance WHERE agency_id = #{agencyId} AND year(cash_back_datetime) = #{year}) t
+        RIGHT JOIN
+            month_view mv ON mv.month = month(t.cash_back_datetime)
+        GROUP BY
+            mv.month
+    </select>
+
 </mapper>
