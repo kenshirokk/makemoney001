@@ -158,6 +158,11 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
+    public Agency finByUserId(Integer userId) {
+        return agencyMapper.finByUserId(userId);
+    }
+
+    @Override
     public List<MoneyFlowVO> getMoneyFlowVO(Integer agencyId, Integer year) {
         return agencyMapper.getMoneyFlowVO(agencyId, year);
     }

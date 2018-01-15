@@ -123,6 +123,7 @@ public interface AgencyMapper {
      */
     int update(Map<String, Object> params);
 
+    Agency finByUserId(Integer userId);
     /**
      * 流水查询
      * @param agencyId

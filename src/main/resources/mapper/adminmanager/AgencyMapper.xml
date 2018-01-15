@@ -324,6 +324,14 @@
             month_view mv ON month(e.OderType) = mv.month
         GROUP BY mv.month
     </select>
+    <select id="finByUserId" resultType="com.mtf.admin.entity.Agency">
+         SELECT
+            *
+        FROM
+            agency
+        WHERE
+            user_id = #{userId}
+    </select>
 
     <select id="getSellRecordVO" resultType="com.mtf.admin.common.vo.SellRecordVO">
         WITH temp(id, nickname, avatar, level)

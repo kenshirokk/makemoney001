@@ -14,10 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -36,17 +33,26 @@ public class AgencyController extends BaseController {
      */
     @ApiOperation(value = "创建代理")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "agencyId", value = "当前登录用户id", required = true, paramType = "query", dataType =
-                    "int"),
             @ApiImplicitParam(name = "userId", value = "玩家用户id", required = true, paramType = "query", dataType =
                     "int"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "phone", value = "电话号码", required = true, paramType = "query", dataType = "int")
     })
     @PostMapping("save")
-    public ResultData createAgency(Integer agencyId, Integer userId, String password, String phone) {
-        int i = agencyService.createAgency(agencyId, userId, password, phone);
-        return i > 0 ? success() : error();
+    public ResultData createAgency( Integer userId, String password, String phone) {
+        synchronized ("createAgency_"+userId){
+            Agency valiAgency = agencyService.finByUserId(userId);
+            if(valiAgency != null){
+                return error("这个代理已经存在");
+            }
+            int i = agencyService.createAgency(super.getLoginUser().getId(), userId, password, phone);
+            return i > 0 ? success() : error();
+        }
+    }
+
+    @GetMapping("findByUserId/{userId}")
+    public ResultData findByUserId( @PathVariable("userId") Integer userId) {
+        return success(agencyService.finByUserId(userId));
     }
 
     /**
