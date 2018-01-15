@@ -299,4 +299,27 @@
             id = #{agencyId}
     </update>
 
+    <select id="getMoneyFlowVO" resultType="com.mtf.admin.common.vo.MoneyFlowVO">
+        WITH temp(id, level)
+        AS (
+            SELECT id, 0 AS level
+            FROM agency WHERE id = #{agencyId}
+            UNION ALL
+            SELECT a.id, temp.level+1 FROM agency a
+            JOIN temp ON a.parent_id = temp.id
+            WHERE a.deleted = 0 OR a.deleted IS NULL
+        )
+        SELECT
+            mv.month AS month,
+            sum(isnull(e.CostMoney, 0)) AS money
+        FROM
+            temp t
+        JOIN
+            (SELECT * FROM [QPRecordDB].[dbo].[RecordBuyOder] WHERE year(OderType) = #{year}) e
+        ON t.id = e.SpreaderID
+        RIGHT JOIN
+            month_view mv ON month(e.OderType) = mv.month
+        GROUP BY mv.month
+    </select>
+
 </mapper>

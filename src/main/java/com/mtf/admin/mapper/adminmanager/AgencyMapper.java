@@ -1,5 +1,6 @@
 package com.mtf.admin.mapper.adminmanager;
 
+import com.mtf.admin.common.vo.MoneyFlowVO;
 import com.mtf.admin.entity.Agency;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -119,4 +120,6 @@ public interface AgencyMapper {
      * @return
      */
     int update(Map<String, Object> params);
+
+    List<MoneyFlowVO> getMoneyFlowVO(Integer agencyId, Integer year);
 }

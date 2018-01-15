@@ -29,4 +29,10 @@ ALTER TABLE AdminManager.dbo.agency DROP COLUMN avatar;
 ALTER TABLE AdminManager.dbo.agency ADD avatar VARCHAR(MAX) NULL;
 
 ALTER TABLE AdminManager.dbo.bulletin DROP COLUMN image;
-ALTER TABLE AdminManager.dbo.bulletin ADD image VARCHAR(MAX) NULL;;
+ALTER TABLE AdminManager.dbo.bulletin ADD image VARCHAR(MAX) NULL;
+
+CREATE TABLE AdminManager.dbo.month_view
+(
+    month INT
+);
+INSERT INTO month_view VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12);
