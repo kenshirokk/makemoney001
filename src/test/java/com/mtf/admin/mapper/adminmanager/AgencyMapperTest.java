@@ -2,6 +2,7 @@ package com.mtf.admin.mapper.adminmanager;
 
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
+import com.mtf.admin.common.vo.MoneyFlowVO;
 import com.mtf.admin.entity.Agency;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,6 +71,13 @@ public class AgencyMapperTest {
         params.put("deleted", 3);
         params.put("disable", 2);
         int i = agencyMapper.update(params);
+    }
 
+    @Test
+    public void getMoneyFlowVO() {
+        List<MoneyFlowVO> moneyFlowVO = agencyMapper.getMoneyFlowVO(17, 2018);
+        for (MoneyFlowVO flowVO : moneyFlowVO) {
+            System.out.println(flowVO);
+        }
     }
 }

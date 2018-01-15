@@ -315,8 +315,11 @@
         FROM
             temp t
         JOIN
-            (SELECT * FROM [QPRecordDB].[dbo].[RecordBuyOder] WHERE year(OderType) = #{year}) e
-        ON t.id = e.SpreaderID
+            [QPAccountsDB].[dbo].[AccountsInfo] ai
+        ON ai.SpreaderID = t.id
+        JOIN
+            (SELECT * FROM [QPRecordDB].[dbo].[RecordBuyOder] WHERE year(OderDate) = #{year}) e
+        ON ai.UserID = e.UserID
         RIGHT JOIN
             month_view mv ON month(e.OderType) = mv.month
         GROUP BY mv.month
