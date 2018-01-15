@@ -325,4 +325,41 @@
         GROUP BY mv.month
     </select>
 
+    <select id="getSellRecordVO" resultType="com.mtf.admin.common.vo.SellRecordVO">
+        WITH temp(id, nickname, avatar, level)
+        AS (
+            SELECT id, nickname, avatar, 0 AS level
+            FROM agency WHERE id = #{agencyId}
+            UNION ALL
+            SELECT a.id, a.nickname, a.avatar, temp.level+1 FROM agency a
+                JOIN temp ON a.parent_id = temp.id
+            WHERE a.deleted = 0 OR a.deleted IS NULL
+        )
+        SELECT
+            rbo.RecordID AS orderId,
+            ai.UserID AS userId,
+            ai.NickName AS userNickname,
+            id.HeadHttp AS userImage,
+            temp.id AS agencyId,
+            temp.nickname AS agencyNickname,
+            temp.avatar AS agencyImage,
+            rbo.GetType AS getType,
+            rbo.GetNums AS getNums,
+            rbo.CostMoney AS costMoney,
+            rbo.OderDate AS orderDatetime
+        FROM
+            temp
+        JOIN [QPAccountsDB].[dbo].[AccountsInfo] ai
+            ON temp.id = ai.SpreaderID
+        LEFT JOIN [QPAccountsDB].[dbo].[IndividualDatum] id
+            ON ai.UserID = id.UserID
+        JOIN [QPRecordDB].[dbo].[RecordBuyOder] rbo
+            ON ai.UserID = rbo.UserID
+        <where>
+            <if test="directAgencyId != null">
+                ai.SpreaderID = #{directAgencyId}
+            </if>
+        </where>
+    </select>
+
 </mapper>

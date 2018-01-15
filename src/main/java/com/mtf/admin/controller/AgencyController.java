@@ -5,10 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.util.Cryptography;
-import com.mtf.admin.common.vo.BaseController;
-import com.mtf.admin.common.vo.PageParam;
-import com.mtf.admin.common.vo.PersonalInfoVO;
-import com.mtf.admin.common.vo.ResultData;
+import com.mtf.admin.common.vo.*;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.CoinRecord;
 import com.mtf.admin.entity.RoomCardRecord;
@@ -162,5 +159,19 @@ public class AgencyController extends BaseController {
         params.put("password", Cryptography.md5(password));
         int i = agencyService.update(params);
         return i > 0 ? success() : error();
+    }
+
+    @GetMapping("getMoneyFlowVO")
+    public ResultData getMoneyFlowVO(Integer year) {
+        Agency loginUser = getLoginUser();
+        List<MoneyFlowVO> moneyFlowVO = agencyService.getMoneyFlowVO(loginUser.getId(), year);
+        return success(moneyFlowVO);
+    }
+
+    @GetMapping("getSellRecordVO")
+    public ResultData getSellRecordVO(PageParam page, Integer directAgencyId) {
+        Agency loginUser = getLoginUser();
+        PageInfo<SellRecordVO> pageInfo = PageHelper.startPage(page).doSelectPageInfo(() -> agencyService.getSellRecordVO(loginUser.getId(), directAgencyId));
+        return success(pageInfo.getList()).set("total", pageInfo.getTotal());
     }
 }

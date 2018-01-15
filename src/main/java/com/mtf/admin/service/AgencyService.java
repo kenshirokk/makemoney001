@@ -1,6 +1,8 @@
 package com.mtf.admin.service;
 
+import com.mtf.admin.common.vo.MoneyFlowVO;
 import com.mtf.admin.common.vo.PersonalInfoVO;
+import com.mtf.admin.common.vo.SellRecordVO;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.CoinRecord;
 import com.mtf.admin.entity.RoomCardRecord;
@@ -66,4 +68,20 @@ public interface AgencyService {
      * @return
      */
     int update(Map<String, Object> params);
+
+    /**
+     * 流水查询
+     * @param agencyId
+     * @param year
+     * @return
+     */
+    List<MoneyFlowVO> getMoneyFlowVO(Integer agencyId, Integer year);
+
+    /**
+     * 出售记录
+     * @param agencyId
+     * @param directAgencyId
+     * @return
+     */
+    List<SellRecordVO> getSellRecordVO(Integer agencyId, Integer directAgencyId);
 }
