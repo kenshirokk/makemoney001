@@ -3,11 +3,13 @@ package com.mtf.admin.common.vo;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 public abstract class BaseController<T>{
 
     @Autowired
