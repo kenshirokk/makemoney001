@@ -31,9 +31,10 @@
 
     </select>
 
-    <insert id="save" parameterType="com.mtf.admin.entity.Agency" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.mtf.admin.entity.Agency">
         INSERT INTO
             Agency(
+                id,
                 agency_type,
                 parent_id,
                 parent_nickname,
@@ -51,6 +52,7 @@
                 user_id
             )
         VALUES (
+                #{id},
                 #{agencyType},
                 #{parentId},
                 #{parentNickname},

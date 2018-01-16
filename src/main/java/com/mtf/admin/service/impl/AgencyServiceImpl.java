@@ -49,6 +49,7 @@ public class AgencyServiceImpl implements AgencyService {
         }
 
         Agency newAgency = new Agency();
+        newAgency.setId(user.getUserID());
         newAgency.setAgencyType(agency.getAgencyType() < 3 ? agency.getAgencyType() + 1 : agency.getAgencyType());
         newAgency.setParentId(agency.getId());
         newAgency.setParentNickname(agency.getNickname());
