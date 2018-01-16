@@ -1,6 +1,8 @@
 package com.mtf.admin.mapper.adminmanager;
 
 import com.mtf.admin.common.vo.MoneyFlowVO;
+import com.mtf.admin.common.vo.PerformanceVO;
+import com.mtf.admin.common.vo.SellRecordVO;
 import com.mtf.admin.entity.Agency;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -121,5 +123,28 @@ public interface AgencyMapper {
      */
     int update(Map<String, Object> params);
 
-    List<MoneyFlowVO> getMoneyFlowVO(Integer agencyId, Integer year);
+    Agency finByUserId(Integer userId);
+    /**
+     * 流水查询
+     * @param agencyId
+     * @param year
+     * @return
+     */
+    List<MoneyFlowVO> getMoneyFlowVO(@Param("agencyId") Integer agencyId, @Param("year") Integer year);
+
+    /**
+     * 出售记录
+     * @param agencyId
+     * @param directAgencyId
+     * @return
+     */
+    List<SellRecordVO> getSellRecordVO(@Param("agencyId") Integer agencyId, @Param("directAgencyId") Integer directAgencyId);
+
+    /**
+     * 业绩
+     * @param agencyId
+     * @param year
+     * @return
+     */
+    List<PerformanceVO> getPerformanceVO(@Param("agencyId") Integer agencyId, @Param("year") Integer year);
 }

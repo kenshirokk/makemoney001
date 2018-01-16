@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;DatabaseName=AdminManager
+    url: jdbc:sqlserver://10.0.0.20:1433;DatabaseName=AdminManager
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
     password: Passw0rd
