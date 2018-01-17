@@ -22,7 +22,7 @@
         <where>
             deleted = 0
             <if test="loginKey != null">
-                AND login_name = #{loginKey}
+                AND id = #{loginKey}
             </if>
             <if test="loginPwd != null">
                 AND password = #{loginPwd}
