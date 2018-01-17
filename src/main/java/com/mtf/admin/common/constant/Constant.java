@@ -34,11 +34,11 @@ public interface Constant {
     /**
      * 审批状态 通过
      */
-    Integer ENCHASHMENT_STATUS_PASS = 1;
+    Integer ENCHASHMENT_STATUS_PASS = 2;
 
     /**
      * 审批状态 拒绝
      */
-    Integer ENCHASHMENT_STATUS_REJECT = 1;
+    Integer ENCHASHMENT_STATUS_REJECT = 3;
 
 }
