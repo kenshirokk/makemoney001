@@ -1,5 +1,6 @@
 package com.mtf.admin.service;
 
+import com.mtf.admin.common.vo.EnchashmentVO;
 import com.mtf.admin.entity.Enchashment;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface EnchashmentService {
      *查询所有 带条件
      * @return
      */
-    List<Enchashment> findAll(Map<String, Object> params);
+    List<EnchashmentVO> findAll(Map<String, Object> params);
 
     /**
      * 提交提现申请

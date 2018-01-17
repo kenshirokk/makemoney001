@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.vo.BaseController;
+import com.mtf.admin.common.vo.EnchashmentVO;
 import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.ResultData;
+import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.Enchashment;
 import com.mtf.admin.service.EnchashmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +40,8 @@ public class EnchashmentController extends BaseController {
         params.put("agencyNickname", agencyNickname);
 
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<Enchashment> list = enchashmentService.findAll(params);
-        PageInfo<Enchashment> pageInfo = new PageInfo<>(list);
+        List<EnchashmentVO> list = enchashmentService.findAll(params);
+        PageInfo<EnchashmentVO> pageInfo = new PageInfo<>(list);
         return success(list).set("total", pageInfo.getTotal());
     }
 
@@ -50,6 +52,8 @@ public class EnchashmentController extends BaseController {
      */
     @PostMapping("save")
     public ResultData save(Enchashment enchashment) {
+        Agency loginUser = getLoginUser();
+        enchashment.setAgencyId(loginUser.getId());
         int i = enchashmentService.save(enchashment);
         return i > 0 ? success() : error("余额不足");
     }

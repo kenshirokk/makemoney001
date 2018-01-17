@@ -1,5 +1,6 @@
 package com.mtf.admin.mapper.adminmanager;
 
+import com.mtf.admin.common.vo.EnchashmentVO;
 import com.mtf.admin.entity.Enchashment;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ public interface EnchashmentMapper {
      *查询所有 带条件
      * @return
      */
-    List<Enchashment> findAll(Map<String, Object> params);
+    List<EnchashmentVO> findAll(Map<String, Object> params);
 
     /**
      * 提交提现申请
