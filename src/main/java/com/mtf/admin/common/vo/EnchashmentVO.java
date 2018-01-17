@@ -12,5 +12,5 @@ import lombok.Data;
 public class EnchashmentVO extends Enchashment {
     private String agencyNickname;
     private Integer agencyType;
-    private byte[] avatar;
+    private String avatar;
 }

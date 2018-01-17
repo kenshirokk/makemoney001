@@ -3,6 +3,7 @@ package com.mtf.admin.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
+import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.EnchashmentVO;
 import com.mtf.admin.common.vo.PageParam;
@@ -54,6 +55,7 @@ public class EnchashmentController extends BaseController {
     public ResultData save(Enchashment enchashment) {
         Agency loginUser = getLoginUser();
         enchashment.setAgencyId(loginUser.getId());
+        enchashment.setApproveStatus(Constant.ENCHASHMENT_STATUS_SUBMIT);
         int i = enchashmentService.save(enchashment);
         return i > 0 ? success() : error("余额不足");
     }

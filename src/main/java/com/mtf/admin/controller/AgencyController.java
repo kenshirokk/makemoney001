@@ -52,7 +52,7 @@ public class AgencyController extends BaseController {
 
     @GetMapping("findByUserId/{userId}")
     public ResultData findByUserId( @PathVariable("userId") Integer userId) {
-        return success(agencyService.finByUserId(userId));
+        return success(agencyService.findOne(userId));
     }
 
     /**
