@@ -1,6 +1,7 @@
 package com.mtf.admin.mapper.adminmanager;
 
 import com.google.common.collect.Maps;
+import com.mtf.admin.common.vo.EnchashmentVO;
 import com.mtf.admin.entity.Enchashment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +27,7 @@ public class EnchashmentMapperTest {
     public void findAll() {
         Map<String, Object> params = Maps.newHashMap();
         params.put("agencyNickname", "test");
-        List<Enchashment> all = enchashmentMapper.findAll(params);
+        List<EnchashmentVO> all = enchashmentMapper.findAll(params);
         System.out.println(all.size());
         params.put("agencyId", 9);
         all = enchashmentMapper.findAll(params);
