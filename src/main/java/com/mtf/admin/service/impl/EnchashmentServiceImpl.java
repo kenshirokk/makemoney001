@@ -1,6 +1,7 @@
 package com.mtf.admin.service.impl;
 
 import com.mtf.admin.common.constant.Constant;
+import com.mtf.admin.common.vo.EnchashmentVO;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.Enchashment;
 import com.mtf.admin.mapper.adminmanager.AgencyMapper;
@@ -23,7 +24,7 @@ public class EnchashmentServiceImpl implements EnchashmentService {
     private AgencyMapper agencyMapper;
 
     @Override
-    public List<Enchashment> findAll(Map<String, Object> params) {
+    public List<EnchashmentVO> findAll(Map<String, Object> params) {
         return enchashmentMapper.findAll(params);
     }
 
