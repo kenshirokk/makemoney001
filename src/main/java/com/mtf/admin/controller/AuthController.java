@@ -9,6 +9,7 @@ import com.mtf.admin.common.vo.BaseController;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.service.AgencyService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,18 +37,20 @@ public class AuthController extends BaseController{
             @RequestParam("authPass")String authPass,
             HttpServletResponse response
     ) throws InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-        Agency loginUser = agencyService.findByLogin(authKey, Cryptography.md5(authPass));
-        if(loginUser != null){
-            AuthVO auth = new AuthVO();
-            auth.setUcode(authKey);
-            auth.setAuthTime(new Date());
-            auth.setRole(loginUser.getAgencyType());
-            auth.setToken(Token.generate(auth));
-            Cookie cookie = new Cookie("auth", URLEncoder.encode(JSONObject.toJSONString(auth),"UTF-8"));
-            cookie.setPath("/");
-            cookie.setMaxAge(-1);
-            response.addCookie(cookie);
-            return success(auth);
+        if(StringUtils.isNumeric(authKey)){
+            Agency loginUser = agencyService.findByLogin(authKey, Cryptography.md5(authPass));
+            if(loginUser != null){
+                AuthVO auth = new AuthVO();
+                auth.setUcode(authKey);
+                auth.setAuthTime(new Date());
+                auth.setRole(loginUser.getAgencyType());
+                auth.setToken(Token.generate(auth));
+                Cookie cookie = new Cookie("auth", URLEncoder.encode(JSONObject.toJSONString(auth),"UTF-8"));
+                cookie.setPath("/");
+                cookie.setMaxAge(-1);
+                response.addCookie(cookie);
+                return success(auth);
+            }
         }
         return error("用户名或密码不正确");
     }
