@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Data
 public class BulletinDTO implements Serializable {
+    private Integer id;
     private String title;
     private String content;
     private String desc;
@@ -17,9 +18,11 @@ public class BulletinDTO implements Serializable {
 
     public Bulletin getBulletin() {
         Bulletin b = new Bulletin();
+        b.setId(id);
         b.setTitle(title);
         b.setContent(content);
         b.setDesc(desc);
+        b.setImage(image);
         return b;
     }
 }

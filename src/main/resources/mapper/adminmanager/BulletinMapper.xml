@@ -35,9 +35,7 @@
             <if test="desc != null and desc != ''">
                 [desc] = #{desc},
             </if>
-            <if test="image != null and image != ''">
-                image = #{image},
-            </if>
+             image = #{image},
             update_datetime = GETDATE(),
         </set>
         WHERE
