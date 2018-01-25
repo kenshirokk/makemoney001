@@ -9,6 +9,7 @@ import com.mtf.admin.common.vo.PageParam;
 import com.mtf.admin.common.vo.ResultData;
 import com.mtf.admin.entity.Bulletin;
 import com.mtf.admin.service.BulletinService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,14 @@ public class BulletinController extends BaseController {
     }
 
     @PostMapping("save")
-    public ResultData save(BulletinDTO dto) throws IOException {
+    public ResultData save(BulletinDTO dto){
+        Bulletin b = dto.getBulletin();
+        int i = bulletinService.save(b);
+        return i > 0 ? success() : error();
+    }
+
+    @PostMapping("update")
+    public ResultData update(BulletinDTO dto) throws IOException  {
         Bulletin b = dto.getBulletin();
         if (dto.getFile() != null) {
             String fileName = Cryptography.md5(b.getTitle() + System.currentTimeMillis()) + ".jpg";
@@ -46,14 +54,11 @@ public class BulletinController extends BaseController {
             Files.write(path, dto.getFile().getBytes());
             b.setImage(fileName);
         }
-        int i = bulletinService.save(b);
-        return i > 0 ? success() : error();
-    }
-
-    @PostMapping("update")
-    public ResultData update(Bulletin bulletin) {
-        int i = bulletinService.update(bulletin);
-        return i > 0 ? success() : error();
+        if(StringUtils.isBlank(b.getImage())){
+            b.setImage(null);
+        }
+        int i = bulletinService.update(b);
+        return i > 0 ? success(b) : error();
     }
 
     @DeleteMapping("{id}")

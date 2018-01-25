@@ -10,3 +10,5 @@ logging:
     com.mtf.admin.mapper: debug
 server:
   port: 8080
+config:
+  uploadPath: D:\nginx-1.10.3\html\dist\

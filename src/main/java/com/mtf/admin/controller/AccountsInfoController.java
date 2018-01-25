@@ -116,6 +116,15 @@ public class AccountsInfoController extends BaseController {
 
     @GetMapping("{userId}")
     public ResultData findOne(@PathVariable("userId") Integer userId) {
-        return success(accountsInfoService.findOne(userId));
+        Agency loginUser = getLoginUser();
+        Integer level = null;
+        if (Constant.AGENCY_TYPE_3.equals(loginUser.getAgencyType())) {
+            level = 2;
+        }
+
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("userId", userId);
+        List<AccountsInfoVO> list = accountsInfoService.findAll(loginUser.getId(), level, params);
+        return success(list != null && list.size() > 0 ? list.get(0) : null);
     }
 }
