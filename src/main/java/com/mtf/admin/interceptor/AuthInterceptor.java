@@ -64,7 +64,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     private void returnJson(String json,HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-Type", "text/html;charset=UTF-8");
+        response.setHeader("Content-Type", "application/json;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.write(json.toString());
         writer.flush();
