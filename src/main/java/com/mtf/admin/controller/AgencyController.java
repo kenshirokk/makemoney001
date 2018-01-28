@@ -65,11 +65,16 @@ public class AgencyController extends BaseController {
      * @return
      */
     @GetMapping
-    public ResultData list(PageParam page, Integer agencyId, Integer parentId, String nickname) {
+    public ResultData list(PageParam page, Integer agencyId, Integer parentId, String nickname,
+                           Boolean onlyChild) {
         Agency loginUser = super.getLoginUser();
         Integer level = null;
         if (Constant.AGENCY_TYPE_3.equals(loginUser.getAgencyType())) {
             level = 2;
+        }
+
+        if (onlyChild != null && onlyChild) {
+            level = 1;
         }
 
         Map<String, Object> params = Maps.newHashMap();
