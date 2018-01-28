@@ -389,4 +389,13 @@
             mv.month
     </select>
 
+    <update id="updateAgencyBalance">
+        UPDATE
+            agency
+        SET
+            agency_balance = #{money}
+        WHERE
+            id = #{agencyId}
+    </update>
+
 </mapper>

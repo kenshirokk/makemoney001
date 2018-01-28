@@ -147,4 +147,12 @@ public interface AgencyMapper {
      * @return
      */
     List<PerformanceVO> getPerformanceVO(@Param("agencyId") Integer agencyId, @Param("year") Integer year);
+
+    /**
+     * 根据id 更新代理余额
+     * @param agencyId
+     * @param money
+     * @return
+     */
+    int updateAgencyBalance(@Param("agencyId") Integer agencyId, @Param("money") Integer money);
 }
