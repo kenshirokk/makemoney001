@@ -25,7 +25,6 @@
         <mybatis.starter.version>1.3.1</mybatis.starter.version>
         <hamcrest.version>1.3</hamcrest.version>
         <guava.version>23.0</guava.version>
-        <swagger.version>2.7.0</swagger.version>
         <pagehelper-starter.version>1.2.3</pagehelper-starter.version>
         <fastjson.version>1.2.44</fastjson.version>
         <swagger.version>2.7.0</swagger.version>
@@ -62,16 +61,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>

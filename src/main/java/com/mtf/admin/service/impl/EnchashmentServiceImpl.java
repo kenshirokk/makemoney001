@@ -33,16 +33,23 @@ public class EnchashmentServiceImpl implements EnchashmentService {
         Integer agencyId = enchashment.getAgencyId();
         Agency treasure = agencyMapper.getTreasureById(agencyId);
         Integer agencyBalance = treasure.getAgencyBalance();
-        Integer moneySum = enchashmentMapper.getMoneySumByAgencyIdAndTypeId(agencyId, Constant.ENCHASHMENT_STATUS_SUBMIT);
-        if ((agencyBalance - moneySum) < enchashment.getMoney()) {
+        if (agencyBalance < enchashment.getMoney()) {
             //提现金额大于余额
             return -1;
         }
+        //直接扣除代理余额
+        agencyMapper.updateAgencyBalance(agencyId, (agencyBalance - enchashment.getMoney()));
         return enchashmentMapper.save(enchashment);
     }
 
     @Override
     public int update(Enchashment enchashment) {
+        if (Constant.ENCHASHMENT_STATUS_REJECT.equals(enchashment.getApproveStatus())) {
+            //如果拒绝  代理加回余额
+            Agency treasure = agencyMapper.getTreasureById(enchashment.getAgencyId());
+            agencyMapper.updateAgencyBalance(enchashment.getAgencyId(), treasure.getAgencyBalance() + enchashment
+                    .getMoney());
+        }
         return enchashmentMapper.update(enchashment);
     }
 }
