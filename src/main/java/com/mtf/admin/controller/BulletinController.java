@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,6 +50,10 @@ public class BulletinController extends BaseController {
     public ResultData update(BulletinDTO dto) throws IOException  {
         Bulletin b = dto.getBulletin();
         if (dto.getFile() != null) {
+            File dir = new File(uploadPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
             String fileName = Cryptography.md5(b.getTitle() + System.currentTimeMillis()) + ".jpg";
             Path path = Paths.get(uploadPath + fileName);
             Files.write(path, dto.getFile().getBytes());
