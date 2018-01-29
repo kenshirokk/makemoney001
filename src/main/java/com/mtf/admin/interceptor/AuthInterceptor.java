@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AuthInterceptor implements HandlerInterceptor {
@@ -34,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         Cookie[] cookies = httpServletRequest.getCookies();
-        List<Cookie> list = Arrays.stream(cookies).filter(c -> c.getName().equals("auth")).collect(Collectors.toList());
+        List<Cookie> list = cookies == null ? null : Arrays.stream(cookies).filter(c -> c.getName().equals("auth")).collect(Collectors.toList());
 
         AuthVO auth = list != null && list.size()>0 ?JSONObject.toJavaObject(JSON.parseObject(URLDecoder.decode(list.get(0).getValue(),"UTF-8")),AuthVO.class): null;
         if(auth == null){
