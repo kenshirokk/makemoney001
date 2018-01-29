@@ -3,11 +3,11 @@ spring:
     url: jdbc:sqlserver://localhost:1433;DatabaseName=AdminManager
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
-    password: Passw0rd
+    password: FYMJ###abc3566
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
 config:
   mackey: a6d0cbb00ebd279847fc4a79a9b4d845
-  uploadPath: d:/upload/
+  uploadPath: c:/upload/
