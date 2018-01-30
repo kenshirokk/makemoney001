@@ -1,7 +1,9 @@
 package com.mtf.admin.service.impl;
 
+import com.google.zxing.WriterException;
 import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.util.Cryptography;
+import com.mtf.admin.common.util.QrCode;
 import com.mtf.admin.common.vo.*;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.CoinRecord;
@@ -13,9 +15,14 @@ import com.mtf.admin.mapper.qpaccountsdb.AccountsInfoMapper;
 import com.mtf.admin.mapper.qpplatformdb.OnLineStreamInfoMapper;
 import com.mtf.admin.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +30,12 @@ import java.util.Map;
 @Service
 @Transactional
 public class AgencyServiceImpl implements AgencyService {
+
+    @Value("${config.uploadPath}")
+    private String uploadPath;
+
+    @Value("${config.inviteUrl}")
+    private String inviteUrl;
 
     @Autowired
     private AgencyMapper agencyMapper;
@@ -36,7 +49,7 @@ public class AgencyServiceImpl implements AgencyService {
     private RoomCardRecordMapper roomCardRecordMapper;
 
     @Override
-    public int createAgency(Integer agencyId, Integer userId, String password, String phone) {
+    public int createAgency(Integer agencyId, Integer userId, String password, String phone) throws IOException, WriterException {
         AccountsInfoVO user = accountsInfoMapper.findOne(userId);
         if (user == null) {
             //用户不存在
@@ -65,6 +78,26 @@ public class AgencyServiceImpl implements AgencyService {
         newAgency.setCreateDate(new Date());
         newAgency.setCreatorId(agencyId);
         newAgency.setUserId(user.getUserID());
+
+        //生成 二维码
+        Path path = QrCode.genQrCode(inviteUrl + user.getUserID(), 500, 500, "jpg", user.getUserID() + ".jpg",
+                uploadPath);
+        //添加 头像logo
+        path = QrCode.addLogo(path, user.getCustomFace(), "jpg", uploadPath);
+
+        //读取背景图片
+        ClassPathResource classPathResource = new ClassPathResource("background.jpg");
+        File file = classPathResource.getFile();
+        Path result = file.toPath();
+
+        //添加二维码
+        result = QrCode.addLogo(result, path, "jpg", path.getFileName().toString(), uploadPath);
+
+        result = QrCode.addWord(result, "昵称: " + user.getNickName(), "jpg", 170, 300, 30);
+        result = QrCode.addWord(result, "邀请码: " + user.getUserID(), "jpg", 170, 350, 30);
+
+        newAgency.setQrcode(result.getFileName().toString());
+
         return agencyMapper.save(newAgency);
     }
 

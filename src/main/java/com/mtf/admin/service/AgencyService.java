@@ -1,5 +1,6 @@
 package com.mtf.admin.service;
 
+import com.google.zxing.WriterException;
 import com.mtf.admin.common.vo.MoneyFlowVO;
 import com.mtf.admin.common.vo.PerformanceVO;
 import com.mtf.admin.common.vo.PersonalInfoVO;
@@ -8,6 +9,7 @@ import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.CoinRecord;
 import com.mtf.admin.entity.RoomCardRecord;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public interface AgencyService {
      * @param phone
      * @return
      */
-    int createAgency(Integer agencyId, Integer userId, String password, String phone);
+    int createAgency(Integer agencyId, Integer userId, String password, String phone) throws IOException, WriterException;
     Agency findOneByLoginKey(String loginKey);
     Agency findByLogin(String loginKey,String loginPwd);
 

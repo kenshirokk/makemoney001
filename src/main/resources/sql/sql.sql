@@ -46,3 +46,5 @@ CREATE TABLE AdminManager.dbo.performance
     cash_back_datetime  DATETIME,
     record_buy_order_id INT
 );
+
+ALTER TABLE AdminManager.dbo.agency ADD qrcode VARCHAR(MAX) NULL;

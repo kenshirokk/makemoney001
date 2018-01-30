@@ -3,6 +3,7 @@ package com.mtf.admin.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
+import com.google.zxing.WriterException;
 import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.util.Cryptography;
 import com.mtf.admin.common.vo.*;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +41,10 @@ public class AgencyController extends BaseController {
             @ApiImplicitParam(name = "phone", value = "电话号码", required = true, paramType = "query", dataType = "int")
     })
     @PostMapping("save")
-    public ResultData createAgency( Integer userId, String password, String phone) {
-        synchronized ("createAgency_"+userId){
+    public ResultData createAgency(Integer userId, String password, String phone) throws IOException, WriterException {
+        synchronized ("createAgency_" + userId) {
             Agency valiAgency = agencyService.finByUserId(userId);
-            if(valiAgency != null){
+            if (valiAgency != null) {
                 return error("这个代理已经存在");
             }
             int i = agencyService.createAgency(super.getLoginUser().getId(), userId, password, phone);
@@ -51,7 +53,7 @@ public class AgencyController extends BaseController {
     }
 
     @GetMapping("findByUserId/{userId}")
-    public ResultData findByUserId( @PathVariable("userId") Integer userId) {
+    public ResultData findByUserId(@PathVariable("userId") Integer userId) {
         return success(agencyService.findOne(userId));
     }
 
@@ -97,8 +99,9 @@ public class AgencyController extends BaseController {
 
     /**
      * 更新金币
-     * @param agencyId        被更改代理id
-     * @param quantity      充值金币数量
+     *
+     * @param agencyId 被更改代理id
+     * @param quantity 充值金币数量
      * @return
      */
     @PostMapping("updateCoin")
@@ -118,6 +121,7 @@ public class AgencyController extends BaseController {
 
     /**
      * 更新房卡
+     *
      * @param agencyId
      * @param quantity
      * @return
@@ -182,7 +186,8 @@ public class AgencyController extends BaseController {
     @GetMapping("getSellRecordVO")
     public ResultData getSellRecordVO(PageParam page, Integer directAgencyId) {
         Agency loginUser = getLoginUser();
-        PageInfo<SellRecordVO> pageInfo = PageHelper.startPage(page).doSelectPageInfo(() -> agencyService.getSellRecordVO(loginUser.getId(), directAgencyId));
+        PageInfo<SellRecordVO> pageInfo = PageHelper.startPage(page).doSelectPageInfo(() -> agencyService
+                .getSellRecordVO(loginUser.getId(), directAgencyId));
         return success(pageInfo.getList()).set("total", pageInfo.getTotal());
     }
 

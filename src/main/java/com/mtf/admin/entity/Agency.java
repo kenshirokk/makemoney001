@@ -30,5 +30,5 @@ public class Agency implements Serializable {
     private Date createDate;        //创建时间
     private Integer creatorId;      //创建者id
     private Integer userId;         //用户id
-
+    private String qrcode;          //推荐二维码
 }
