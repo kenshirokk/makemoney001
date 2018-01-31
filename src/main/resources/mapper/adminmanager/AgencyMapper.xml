@@ -167,7 +167,7 @@
         UPDATE
             agency
         SET
-            coin += #{quantity}
+            coin = ISNULL(coin,0) + #{quantity}
         WHERE
         id = #{agencyId}
     </update>
@@ -176,7 +176,7 @@
         UPDATE
             agency
         SET
-            room_card += #{quantity}
+            room_card = ISNULL(room_card,0) + #{quantity}
         WHERE
         id = #{agencyId}
     </update>
