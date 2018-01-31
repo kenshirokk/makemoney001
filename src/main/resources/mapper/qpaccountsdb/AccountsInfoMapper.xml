@@ -88,7 +88,7 @@
         UPDATE
             [QPTreasureDB].[dbo].[GameScoreInfo]
         SET
-            Score += #{quantity}
+            Score = isnull(Score,0) + #{quantity}
         WHERE
             UserID = #{userId}
     </update>
@@ -97,7 +97,7 @@
         UPDATE
             [QPTreasureDB].[dbo].[GameScoreInfo]
         SET
-            InsureScore += #{quantity}
+            InsureScore = isnull(InsureScore,0) + #{quantity}
         WHERE
             UserID = #{userId}
     </update>
