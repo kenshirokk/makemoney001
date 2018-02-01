@@ -49,7 +49,8 @@
                 deleted,
                 create_date,
                 creator_id,
-                user_id
+                user_id,
+                qrcode
             )
         VALUES (
                 #{id},
@@ -67,7 +68,8 @@
                 #{deleted},
                 #{createDate},
                 #{creatorId},
-                #{userId}
+                #{userId},
+                #{qrcode}
                 )
     </insert>
 
@@ -295,6 +297,9 @@
             </if>
             <if test="password != null and password != ''">
                 password = #{password}
+            </if>
+            <if test="qrcode != null and qrcode != ''">
+                qrcode = #{qrcode}
             </if>
         </set>
         WHERE
