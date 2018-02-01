@@ -33,4 +33,11 @@ public interface EnchashmentMapper {
 
     Integer getMoneySumByAgencyIdAndTypeId(@Param("agencyId") Integer agencyId,
                                            @Param("enchashmentType") Integer enchashmentType);
+
+    /**
+     * 根据提线申请id 查询
+     * @param id
+     * @return
+     */
+    Enchashment findOne(Integer id);
 }
