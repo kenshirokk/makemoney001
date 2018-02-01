@@ -24,8 +24,8 @@
             ai.*,
             t.nickname AS agencyNickname,
             af.HeadHttp AS customFace,
-            gsi.Score AS score,
-            gsi.InsureScore AS insureScore
+            isnull(gsi.Score, 0) AS score,
+            isnull(gsi.InsureScore, 0) AS insureScore
         FROM
             [QPAccountsDB].[dbo].[AccountsInfo] ai
         INNER JOIN temp t ON ai.SpreaderID = t.id
