@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -73,7 +75,9 @@ public class AuthController extends BaseController{
 
                        //读取背景图片
                        ClassPathResource classPathResource = new ClassPathResource("background.jpg");
-                       File file = classPathResource.getFile();
+                       InputStream inputStream = classPathResource.getInputStream();
+                       File file = new File("background.jpg");
+                       Files.copy(inputStream, file.toPath());
                        Path result = file.toPath();
 
                        //添加二维码
