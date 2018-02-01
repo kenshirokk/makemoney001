@@ -44,11 +44,14 @@ public class EnchashmentServiceImpl implements EnchashmentService {
 
     @Override
     public int update(Enchashment enchashment) {
+        //修改只传我 提现申请id 和 审批状态
+        //所以我要重新 根据id 查一遍  取得代理id 或者其他信息
+        Enchashment one = enchashmentMapper.findOne(enchashment.getId());
         if (Constant.ENCHASHMENT_STATUS_REJECT.equals(enchashment.getApproveStatus())) {
             //如果拒绝  代理加回余额
-            Agency treasure = agencyMapper.getTreasureById(enchashment.getAgencyId());
-            agencyMapper.updateAgencyBalance(enchashment.getAgencyId(), treasure.getAgencyBalance() + enchashment
-                    .getMoney());
+            Agency treasure = agencyMapper.getTreasureById(one.getAgencyId());
+            agencyMapper.updateAgencyBalance(enchashment.getAgencyId(), treasure.getAgencyBalance()
+                    + one.getMoney());
         }
         return enchashmentMapper.update(enchashment);
     }

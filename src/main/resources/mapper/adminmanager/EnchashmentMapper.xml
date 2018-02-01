@@ -81,4 +81,13 @@
             enchashment_type = #{enchashmentType}
     </select>
 
+    <select id="findOne" resultType="com.mtf.admin.entity.Enchashment">
+        SELECT
+            *
+        FROM
+            enchashment
+        WHERE
+            id = #{id}
+    </select>
+
 </mapper>
