@@ -11,4 +11,4 @@ mybatis:
 config:
   mackey: a6d0cbb00ebd279847fc4a79a9b4d845
   uploadPath: c:/Program Files/nginx-1.10.3/html/dist/upload/
-  inviteUrl: http://47.97.119.137:9999/to.html?shareId=
+  inviteUrl: http://47.97.119.137:8888/to.html?shareId=
