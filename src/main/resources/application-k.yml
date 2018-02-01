@@ -10,3 +10,5 @@ logging:
     com.mtf.admin.mapper: debug
 server:
   port: 8088
+config:
+  uploadPath: d:/qrcode

@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +51,8 @@ public class AgencyServiceImpl implements AgencyService {
     private RoomCardRecordMapper roomCardRecordMapper;
 
     @Override
-    public int createAgency(Integer agencyId, Integer userId, String password, String phone) throws IOException, WriterException {
+    public int createAgency(Integer agencyId, Integer userId, String password, String phone) throws IOException,
+            WriterException {
         AccountsInfoVO user = accountsInfoMapper.findOne(userId);
         if (user == null) {
             //用户不存在
@@ -87,7 +90,9 @@ public class AgencyServiceImpl implements AgencyService {
 
         //读取背景图片
         ClassPathResource classPathResource = new ClassPathResource("background.jpg");
-        File file = classPathResource.getFile();
+        InputStream inputStream = classPathResource.getInputStream();
+        File file = new File("background.jpg");
+        Files.copy(inputStream, file.toPath());
         Path result = file.toPath();
 
         //添加二维码
@@ -103,12 +108,12 @@ public class AgencyServiceImpl implements AgencyService {
 
     @Override
     public Agency findOneByLoginKey(String loginKey) {
-        return agencyMapper.findOneByLoginKeyAndLoginPwd(loginKey,null);
+        return agencyMapper.findOneByLoginKeyAndLoginPwd(loginKey, null);
     }
 
     @Override
     public Agency findByLogin(String loginKey, String loginPwd) {
-        return agencyMapper.findOneByLoginKeyAndLoginPwd(loginKey,loginPwd);
+        return agencyMapper.findOneByLoginKeyAndLoginPwd(loginKey, loginPwd);
     }
 
     @Override
@@ -157,14 +162,15 @@ public class AgencyServiceImpl implements AgencyService {
     @Override
     public int updateCoinPlus(CoinRecord coinRecord) throws RuntimeException {
         Agency agency = agencyMapper.findOne(coinRecord.getFromAgencyId());
-        if (agency.getAgencyType() > 1 &&(agency.getCoin() == null || coinRecord.getQuantity().compareTo(agency.getCoin()) > 0)) {
+        if (agency.getAgencyType() > 1 && (agency.getCoin() == null || coinRecord.getQuantity().compareTo(agency
+                .getCoin()) > 0)) {
             //余额不足
             return -1;
         }
         int i = agencyMapper.updateCoinMinus(coinRecord.getFromAgencyId(), coinRecord.getQuantity());
         int j = agencyMapper.updateCoinPlus(coinRecord.getToAgencyId(), coinRecord.getQuantity());
         int k = coinRecordMapper.save(coinRecord);
-        if(i + j + k < 3){
+        if (i + j + k < 3) {
             throw new RuntimeException();
         }
         return 1;
@@ -173,14 +179,15 @@ public class AgencyServiceImpl implements AgencyService {
     @Override
     public int updateRoomCardPlus(RoomCardRecord roomCardRecord) throws RuntimeException {
         Agency agency = agencyMapper.findOne(roomCardRecord.getFromAgencyId());
-        if (agency.getAgencyType() > 1 &&(agency.getRoomCard() == null || roomCardRecord.getQuantity().compareTo(agency.getRoomCard()) > 0)) {
+        if (agency.getAgencyType() > 1 && (agency.getRoomCard() == null || roomCardRecord.getQuantity().compareTo
+                (agency.getRoomCard()) > 0)) {
             //余额不足
             return -1;
         }
         int i = agencyMapper.updateRoomCardMinus(roomCardRecord.getFromAgencyId(), roomCardRecord.getQuantity());
         int j = agencyMapper.updateRoomCardPlus(roomCardRecord.getToAgencyId(), roomCardRecord.getQuantity());
         int k = roomCardRecordMapper.save(roomCardRecord);
-        if(i + j + k < 3){
+        if (i + j + k < 3) {
             throw new RuntimeException();
         }
         return 1;
