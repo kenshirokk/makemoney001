@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +93,7 @@ public class AgencyServiceImpl implements AgencyService {
         ClassPathResource classPathResource = new ClassPathResource("background.jpg");
         InputStream inputStream = classPathResource.getInputStream();
         File file = new File("background.jpg");
-        Files.copy(inputStream, file.toPath());
+        Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
         Path result = file.toPath();
 
         //添加二维码
