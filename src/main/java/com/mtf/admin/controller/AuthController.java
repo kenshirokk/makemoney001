@@ -27,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -77,7 +78,7 @@ public class AuthController extends BaseController{
                        ClassPathResource classPathResource = new ClassPathResource("background.jpg");
                        InputStream inputStream = classPathResource.getInputStream();
                        File file = new File("background.jpg");
-                       Files.copy(inputStream, file.toPath());
+                       Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                        Path result = file.toPath();
 
                        //添加二维码
