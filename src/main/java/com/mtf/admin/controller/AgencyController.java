@@ -169,9 +169,15 @@ public class AgencyController extends BaseController {
 
     @PostMapping("updatePassword")
     public ResultData updatePassword(Integer agencyId, String password) {
+        Agency loginUser = getLoginUser();
+        agencyId = agencyId == null ? loginUser.getId() : agencyId;
         Map<String, Object> params = Maps.newHashMap();
         params.put("agencyId", agencyId);
         params.put("password", Cryptography.md5(password));
+        List<Agency> list = agencyService.findAll(loginUser.getId(),null,params);
+        if((list == null || list.size() ==  0) && !agencyId.equals(loginUser.getId())){
+            return  error();
+        }
         int i = agencyService.update(params);
         return i > 0 ? success() : error();
     }
