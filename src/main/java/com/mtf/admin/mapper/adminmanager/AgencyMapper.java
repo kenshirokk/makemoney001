@@ -136,9 +136,11 @@ public interface AgencyMapper {
      * 出售记录
      * @param agencyId
      * @param directAgencyId
+     * @param directPlayerId
      * @return
      */
-    List<SellRecordVO> getSellRecordVO(@Param("agencyId") Integer agencyId, @Param("directAgencyId") Integer directAgencyId);
+    List<SellRecordVO> getSellRecordVO(@Param("agencyId") Integer agencyId, @Param("directAgencyId") Integer directAgencyId,
+                                       @Param("directPlayerId") Integer directPlayerId);
 
     /**
      * 业绩

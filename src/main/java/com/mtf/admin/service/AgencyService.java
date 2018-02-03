@@ -88,7 +88,7 @@ public interface AgencyService {
      * @param directAgencyId
      * @return
      */
-    List<SellRecordVO> getSellRecordVO(Integer agencyId, Integer directAgencyId);
+    List<SellRecordVO> getSellRecordVO(Integer agencyId, Integer directAgencyId,Integer directPlayerId);
 
     /**
      * 业绩

@@ -210,8 +210,8 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
-    public List<SellRecordVO> getSellRecordVO(Integer agencyId, Integer directAgencyId) {
-        return agencyMapper.getSellRecordVO(agencyId, directAgencyId);
+    public List<SellRecordVO> getSellRecordVO(Integer agencyId, Integer directAgencyId,Integer directPlayerId) {
+        return agencyMapper.getSellRecordVO(agencyId, directAgencyId,directPlayerId);
     }
 
     @Override

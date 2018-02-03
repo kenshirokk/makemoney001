@@ -190,10 +190,10 @@ public class AgencyController extends BaseController {
     }
 
     @GetMapping("getSellRecordVO")
-    public ResultData getSellRecordVO(PageParam page, Integer directAgencyId) {
+    public ResultData getSellRecordVO(PageParam page, Integer directAgencyId, Integer directPlayerId) {
         Agency loginUser = getLoginUser();
         PageInfo<SellRecordVO> pageInfo = PageHelper.startPage(page).doSelectPageInfo(() -> agencyService
-                .getSellRecordVO(loginUser.getId(), directAgencyId));
+                .getSellRecordVO(loginUser.getId(), directAgencyId,directPlayerId));
         return success(pageInfo.getList()).set("total", pageInfo.getTotal());
     }
 

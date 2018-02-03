@@ -85,7 +85,7 @@ public class AgencyMapperTest {
 
     @Test
     public void getSellRecordVO() {
-        List<SellRecordVO> sellRecordVO = agencyMapper.getSellRecordVO(17, 10);
+        List<SellRecordVO> sellRecordVO = agencyMapper.getSellRecordVO(17, 10,10);
         for (SellRecordVO vo : sellRecordVO) {
             System.out.println(vo);
         }

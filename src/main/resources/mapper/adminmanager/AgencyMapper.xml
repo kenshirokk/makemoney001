@@ -374,6 +374,9 @@
             <if test="directAgencyId != null">
                 ai.SpreaderID = #{directAgencyId}
             </if>
+            <if test="directPlayerId != null">
+                and ai.UserID = #{directPlayerId}
+            </if>
         </where>
     </select>
 

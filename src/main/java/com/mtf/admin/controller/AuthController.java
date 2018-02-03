@@ -98,7 +98,7 @@ public class AuthController extends BaseController{
                 return success(auth);
             }
         }
-        return error("用户名或密码不正确");
+        return error("密码不正确");
     }
 
 
