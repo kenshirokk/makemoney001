@@ -454,6 +454,8 @@
         ON
             o.UserID = ai.UserID
         <where>
+            p.agency_id = #{agencyId}
+            AND
             year(p.cash_back_datetime) = #{year}
             AND
             month(p.cash_back_datetime) = #{month}
