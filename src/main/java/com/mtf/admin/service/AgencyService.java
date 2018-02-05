@@ -83,6 +83,16 @@ public interface AgencyService {
     List<MoneyFlowVO> getMoneyFlowVO(Integer agencyId, Integer year);
 
     /**
+     * 流水查询 详情
+     * @param year
+     * @param month
+     * @param agencyId
+     * @param userId
+     * @return
+     */
+    List<SellRecordVO> getMoneyFlowVODetail(Integer year, Integer month, Integer agencyId, Integer userId);
+
+    /**
      * 出售记录
      * @param agencyId
      * @param directAgencyId

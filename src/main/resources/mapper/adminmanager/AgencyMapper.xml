@@ -331,6 +331,7 @@
             month_view mv ON month(e.OderDate) = mv.month
         GROUP BY mv.month
     </select>
+
     <select id="finByUserId" resultType="com.mtf.admin.entity.Agency">
          SELECT
             *
@@ -338,6 +339,44 @@
             agency
         WHERE
             user_id = #{userId}
+    </select>
+
+    <select id="getMoneyFlowVODetail" resultType="com.mtf.admin.common.vo.SellRecordVO">
+        WITH temp(id, level )
+        AS (
+            SELECT
+                id,
+                0 AS level
+            FROM agency
+            WHERE id = #{agencyId}
+            UNION ALL
+            SELECT
+                a.id,
+                temp.level + 1
+            FROM agency a
+            JOIN temp ON a.parent_id = temp.id
+            WHERE a.deleted = 0 OR a.deleted IS NULL
+        )
+        SELECT
+            ai.UserID AS userId,
+            ai.NickName AS userNickname,
+            e.CostMoney AS costMoney,
+            e.OderDate AS orderDatetime
+        FROM
+          temp t
+        JOIN
+          [QPAccountsDB].[dbo].[AccountsInfo] ai
+        ON ai.SpreaderID = t.id
+        JOIN
+            ( SELECT *
+            FROM [QPRecordDB].[dbo].[RecordBuyOder]
+            WHERE year (OderDate) = #{year}
+            AND month (OderDate) = #{month}
+            ) e
+        ON ai.UserID = e.UserID
+        <if test="userId != null">
+            WHERE ai.UserID = #{userId}
+        </if>
     </select>
 
     <select id="getSellRecordVO" resultType="com.mtf.admin.common.vo.SellRecordVO">

@@ -98,4 +98,13 @@ public class AgencyMapperTest {
             System.out.println(vo);
         }
     }
+
+    @Test
+    public void getMoneyFlowVODetail() {
+        List<SellRecordVO> list = agencyMapper.getMoneyFlowVODetail(2018, 1, 1, null);
+        for (SellRecordVO vo : list) {
+            System.out.println(vo);
+        }
+    }
+
 }

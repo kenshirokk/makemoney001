@@ -189,6 +189,14 @@ public class AgencyController extends BaseController {
         return success(moneyFlowVO);
     }
 
+    @GetMapping("getMoneyFlowVODetail")
+    public ResultData getMoneyFlowVODetail(PageParam page, Integer year, Integer month, Integer UserId) {
+        Agency loginUser = getLoginUser();
+        PageInfo<SellRecordVO> pageInfo = PageHelper.startPage(page).doSelectPageInfo(() -> agencyService
+                .getMoneyFlowVODetail(year, month, loginUser.getId(), UserId));
+        return success(pageInfo.getList()).set("total", pageInfo.getTotal());
+    }
+
     @GetMapping("getSellRecordVO")
     public ResultData getSellRecordVO(PageParam page, Integer directAgencyId, Integer directPlayerId) {
         Agency loginUser = getLoginUser();

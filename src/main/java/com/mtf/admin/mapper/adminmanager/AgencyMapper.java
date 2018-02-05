@@ -133,6 +133,17 @@ public interface AgencyMapper {
     List<MoneyFlowVO> getMoneyFlowVO(@Param("agencyId") Integer agencyId, @Param("year") Integer year);
 
     /**
+     * 流水查询 详情
+     * @param year
+     * @param month
+     * @param agencyId
+     * @param userId
+     * @return
+     */
+    List<SellRecordVO> getMoneyFlowVODetail(@Param("year") Integer year, @Param("month") Integer month,
+                                            @Param("agencyId") Integer agencyId, @Param("userId") Integer userId);
+
+    /**
      * 出售记录
      * @param agencyId
      * @param directAgencyId
