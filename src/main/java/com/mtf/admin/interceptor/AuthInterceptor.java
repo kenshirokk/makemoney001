@@ -2,6 +2,7 @@ package com.mtf.admin.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.util.StringUtil;
 import com.mtf.admin.common.annotation.AdminMethod;
 import com.mtf.admin.common.annotation.PublicMethod;
 import com.mtf.admin.common.config.Role;
@@ -19,14 +20,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
-        httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:8089");
+        httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
+        String origin = httpServletRequest.getHeader("Origin");
+        httpServletResponse.addHeader("Access-Control-Allow-Origin", StringUtil.isEmpty(origin) ? "*" : origin);
         HandlerMethod method = (HandlerMethod)o;
         PublicMethod pub = method.getMethod().getAnnotation(PublicMethod.class);
         if(pub != null){
