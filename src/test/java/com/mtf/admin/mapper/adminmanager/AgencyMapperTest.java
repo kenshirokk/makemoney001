@@ -3,6 +3,7 @@ package com.mtf.admin.mapper.adminmanager;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
 import com.mtf.admin.common.vo.MoneyFlowVO;
+import com.mtf.admin.common.vo.PerformanceDetailVO;
 import com.mtf.admin.common.vo.PerformanceVO;
 import com.mtf.admin.common.vo.SellRecordVO;
 import com.mtf.admin.entity.Agency;
@@ -103,6 +104,14 @@ public class AgencyMapperTest {
     public void getMoneyFlowVODetail() {
         List<SellRecordVO> list = agencyMapper.getMoneyFlowVODetail(2018, 1, 1, null);
         for (SellRecordVO vo : list) {
+            System.out.println(vo);
+        }
+    }
+
+    @Test
+    public void getPerformanceVODetail() {
+        List<PerformanceDetailVO> list = agencyMapper.getPerformanceVODetail(2018, 2, 1, 100);
+        for (PerformanceDetailVO vo : list) {
             System.out.println(vo);
         }
     }

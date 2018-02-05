@@ -436,6 +436,33 @@
             mv.month
     </select>
 
+    <select id="getPerformanceVODetail" resultType="com.mtf.admin.common.vo.PerformanceDetailVO">
+        SELECT
+            ai.UserID AS userId,
+            ai.NickName AS nickname,
+            p.money AS backMoney,
+            o.CostMoney AS costMoney,
+            p.cash_back_datetime AS payDatetime
+        FROM
+            performance p
+        LEFT JOIN
+            [QPRecordDB].[dbo].[RecordBuyOder] o
+        ON
+            p.record_buy_order_id = o.RecordID
+        INNER JOIN
+            [QPAccountsDB].[dbo].[AccountsInfo] ai
+        ON
+            o.UserID = ai.UserID
+        <where>
+            year(p.cash_back_datetime) = #{year}
+            AND
+            month(p.cash_back_datetime) = #{month}
+            <if test="userId != null">
+                AND o.UserID = #{userId}
+            </if>
+        </where>
+    </select>
+
     <update id="updateAgencyBalance">
         UPDATE
             agency

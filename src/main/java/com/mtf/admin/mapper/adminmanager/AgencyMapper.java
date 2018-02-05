@@ -1,6 +1,7 @@
 package com.mtf.admin.mapper.adminmanager;
 
 import com.mtf.admin.common.vo.MoneyFlowVO;
+import com.mtf.admin.common.vo.PerformanceDetailVO;
 import com.mtf.admin.common.vo.PerformanceVO;
 import com.mtf.admin.common.vo.SellRecordVO;
 import com.mtf.admin.entity.Agency;
@@ -160,6 +161,17 @@ public interface AgencyMapper {
      * @return
      */
     List<PerformanceVO> getPerformanceVO(@Param("agencyId") Integer agencyId, @Param("year") Integer year);
+
+    /**
+     * 业绩详情
+     * @param year
+     * @param month
+     * @param agencyId
+     * @param userId
+     * @return
+     */
+    List<PerformanceDetailVO> getPerformanceVODetail(@Param("year") Integer year, @Param("month") Integer month,
+                                                     @Param("agencyId") Integer agencyId, @Param("userId") Integer userId);
 
     /**
      * 根据id 更新代理余额

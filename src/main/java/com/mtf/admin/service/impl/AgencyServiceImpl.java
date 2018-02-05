@@ -224,4 +224,10 @@ public class AgencyServiceImpl implements AgencyService {
         return agencyMapper.getPerformanceVO(agencyId, year);
     }
 
+    @Override
+    public List<PerformanceDetailVO> getPerformanceVODetail(Integer year, Integer month, Integer agencyId, Integer
+            userId) {
+        return agencyMapper.getPerformanceVODetail(year, month, agencyId, userId);
+    }
+
 }

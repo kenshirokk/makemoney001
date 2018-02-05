@@ -1,13 +1,11 @@
 package com.mtf.admin.service;
 
 import com.google.zxing.WriterException;
-import com.mtf.admin.common.vo.MoneyFlowVO;
-import com.mtf.admin.common.vo.PerformanceVO;
-import com.mtf.admin.common.vo.PersonalInfoVO;
-import com.mtf.admin.common.vo.SellRecordVO;
+import com.mtf.admin.common.vo.*;
 import com.mtf.admin.entity.Agency;
 import com.mtf.admin.entity.CoinRecord;
 import com.mtf.admin.entity.RoomCardRecord;
+import org.apache.ibatis.annotations.Param;
 
 import java.io.IOException;
 import java.util.List;
@@ -107,4 +105,14 @@ public interface AgencyService {
      * @return
      */
     List<PerformanceVO> getPerformanceVO(Integer agencyId, Integer year);
+
+    /**
+     * 业绩详情
+     * @param year
+     * @param month
+     * @param agencyId
+     * @param userId
+     * @return
+     */
+    List<PerformanceDetailVO> getPerformanceVODetail(Integer year, Integer month, Integer agencyId, Integer userId);
 }

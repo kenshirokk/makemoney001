@@ -211,4 +211,13 @@ public class AgencyController extends BaseController {
         List<PerformanceVO> performanceVO = agencyService.getPerformanceVO(loginUser.getId(), year);
         return success(performanceVO);
     }
+
+    @GetMapping("getPerformanceVODetail")
+    public ResultData getPerformanceVODetail(PageParam page, Integer year, Integer month, Integer userId) {
+        Agency loginUser = getLoginUser();
+        PageInfo<PerformanceDetailVO> pageInfo = PageHelper.startPage(page).doSelectPageInfo(() -> agencyService
+                .getPerformanceVODetail(year, month, loginUser.getId(), userId));
+        return success(pageInfo.getList()).set("total", pageInfo.getTotal());
+    }
+
 }
