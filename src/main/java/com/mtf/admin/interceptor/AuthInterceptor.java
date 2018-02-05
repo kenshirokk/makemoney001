@@ -25,6 +25,8 @@ import java.util.stream.Collectors;
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:8089");
         HandlerMethod method = (HandlerMethod)o;
         PublicMethod pub = method.getMethod().getAnnotation(PublicMethod.class);
         if(pub != null){
@@ -35,14 +37,14 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         AuthVO auth = list != null && list.size()>0 ?JSONObject.toJavaObject(JSON.parseObject(URLDecoder.decode(list.get(0).getValue(),"UTF-8")),AuthVO.class): null;
         if(auth == null){
-            returnJson(JSONObject.toJSONString(new ResultData(ResultCode.paramsError)),httpServletResponse);
+            returnJson(JSONObject.toJSONString(new ResultData(ResultCode.paramsError,"登录过期")),httpServletResponse);
             return false;
         }
         Date authTime = auth.getAuthTime();
         Calendar now = Calendar.getInstance();
         now.add(Calendar.DAY_OF_YEAR,-1);
         if(authTime.before(now.getTime())){
-            returnJson(JSONObject.toJSONString(new ResultData(ResultCode.authExpired)),httpServletResponse);
+            returnJson(JSONObject.toJSONString(new ResultData(ResultCode.authExpired,"登录过期")),httpServletResponse);
             return false;
         }
 
