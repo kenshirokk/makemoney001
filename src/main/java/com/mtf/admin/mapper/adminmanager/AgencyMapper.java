@@ -174,10 +174,19 @@ public interface AgencyMapper {
                                                      @Param("agencyId") Integer agencyId, @Param("userId") Integer userId);
 
     /**
-     * 根据id 更新代理余额
+     * 根据id 更新代理余额ADD
      * @param agencyId
-     * @param money
+     * @param eId
      * @return
      */
-    int updateAgencyBalance(@Param("agencyId") Integer agencyId, @Param("money") Integer money);
+    int updateAgencyBalance(@Param("agencyId") Integer agencyId, @Param("eId") Integer eId);
+
+
+    /**
+     * 根据id 更新代理余额SUB
+     * @param agencyId
+     * @param eId
+     * @return
+     */
+    int updateAgencyBalanceSub(@Param("agencyId") Integer agencyId, @Param("money") Integer money);
 }

@@ -76,7 +76,7 @@ public class AgencyServiceImpl implements AgencyService {
         newAgency.setPhone(phone);
         newAgency.setRoomCard(0);
         newAgency.setCoin(0);
-        newAgency.setAgencyBalance(0);
+        newAgency.setAgencyBalance(0.0);
         newAgency.setDisable(0);
         newAgency.setDeleted(0);
         newAgency.setCreateDate(new Date());

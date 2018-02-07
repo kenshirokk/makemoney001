@@ -10,7 +10,7 @@ public class Enchashment implements Serializable {
     private Integer id;
     private Integer agencyId;               //代理人id
     private Integer enchashmentType;        //提现类型
-    private Integer money;                  //提现金额
+    private Double money;                  //提现金额
     private String weixin;
     private String alipay;
     private String bankno;

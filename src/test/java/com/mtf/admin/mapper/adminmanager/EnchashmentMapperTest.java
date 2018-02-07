@@ -39,7 +39,7 @@ public class EnchashmentMapperTest {
         Enchashment e = new Enchashment();
         e.setAgencyId(2);
         e.setEnchashmentType(3);
-        e.setMoney(666);
+        e.setMoney(666.0);
         e.setWeixin("weixin");
         e.setAlipay("ali");
         e.setBankno("bankno");

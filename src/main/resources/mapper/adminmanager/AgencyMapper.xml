@@ -63,7 +63,7 @@
                 #{phone},
                 #{roomCard},
                 #{coin},
-                #{agencyBalance},
+                0,
                 #{disable},
                 #{deleted},
                 #{createDate},
@@ -469,9 +469,18 @@
         UPDATE
             agency
         SET
-            agency_balance = #{money}
+            agency_balance = agency_balance + (select e.money from enchashment e where e.id =  #{eId})
         WHERE
             id = #{agencyId}
+    </update>
+
+    <update id="updateAgencyBalanceSub">
+        UPDATE
+        agency
+        SET
+        agency_balance = agency_balance - #{money}
+        WHERE
+        id = #{agencyId}
     </update>
 
 </mapper>

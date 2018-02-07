@@ -7,6 +7,6 @@ import java.io.Serializable;
 @Data
 public class PerformanceVO implements Serializable {
     private Integer month;
-    private Long levelOneMoney;
-    private Long levelTwoMoney;
+    private Integer levelOneMoney;
+    private Integer levelTwoMoney;
 }

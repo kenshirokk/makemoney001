@@ -104,7 +104,9 @@ public class AuthController extends BaseController{
 
     @RequestMapping("getUserInfo")
     public ResultData getUserInfo() {
-        return success(super.getLoginUser());
+        Agency user  = super.getLoginUser();
+        user.setAgencyBalance(user.getAgencyBalance() == null ? 0 : user.getAgencyBalance() / 100);
+        return success(user);
     }
 
     @RequestMapping("logout")

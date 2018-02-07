@@ -42,6 +42,9 @@ public class EnchashmentController extends BaseController {
 
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<EnchashmentVO> list = enchashmentService.findAll(params);
+        for (EnchashmentVO vo : list){
+            vo.setMoney(vo.getMoney() / 100);
+        }
         PageInfo<EnchashmentVO> pageInfo = new PageInfo<>(list);
         return success(list).set("total", pageInfo.getTotal());
     }
@@ -54,6 +57,7 @@ public class EnchashmentController extends BaseController {
     @PostMapping("save")
     public ResultData save(Enchashment enchashment) {
         Agency loginUser = getLoginUser();
+        enchashment.setMoney(enchashment.getMoney() * 100);
         enchashment.setAgencyId(loginUser.getId());
         enchashment.setApproveStatus(Constant.ENCHASHMENT_STATUS_SUBMIT);
         int i = enchashmentService.save(enchashment);

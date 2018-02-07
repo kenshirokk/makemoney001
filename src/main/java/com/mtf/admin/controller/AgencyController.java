@@ -2,6 +2,7 @@ package com.mtf.admin.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.zxing.WriterException;
 import com.mtf.admin.common.constant.Constant;
@@ -209,7 +210,15 @@ public class AgencyController extends BaseController {
     public ResultData getPerformanceVO(Integer year) {
         Agency loginUser = getLoginUser();
         List<PerformanceVO> performanceVO = agencyService.getPerformanceVO(loginUser.getId(), year);
-        return success(performanceVO);
+        List<PerformanceDoubleVO> list = Lists.newArrayList();
+        for(PerformanceVO vo : performanceVO){
+            PerformanceDoubleVO dvo = new PerformanceDoubleVO();
+            dvo.setMonth(vo.getMonth());
+            dvo.setLevelOneMoney(vo.getLevelOneMoney() / 100.0);
+            dvo.setLevelTwoMoney(vo.getLevelTwoMoney() / 100.0);
+            list.add(dvo);
+        }
+        return success(list);
     }
 
     @GetMapping("getPerformanceVODetail")

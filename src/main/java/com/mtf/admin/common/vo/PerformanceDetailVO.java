@@ -10,8 +10,12 @@ public class PerformanceDetailVO implements Serializable {
 
     private Integer userId;
     private String nickname;
-    private Integer backMoney;
+    private Double backMoney;
     private Integer costMoney;
     private Date payDatetime;
+
+    public Double getBackMoney(){
+        return backMoney/100;
+    }
 
 }
