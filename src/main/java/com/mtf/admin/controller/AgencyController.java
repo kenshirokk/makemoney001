@@ -87,6 +87,9 @@ public class AgencyController extends BaseController {
 
         PageHelper.startPage(page);
         List<Agency> list = agencyService.findAll(loginUser.getId(), level, params);
+        for(Agency a : list){
+            a.setAgencyBalance(a.getAgencyBalance()/100);
+        }
         PageInfo<Agency> pageInfo = new PageInfo<>(list);
         return success(list).set("total", pageInfo.getTotal());
     }
