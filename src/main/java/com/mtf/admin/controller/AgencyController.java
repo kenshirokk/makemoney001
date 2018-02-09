@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.zxing.WriterException;
+import com.mtf.admin.common.annotation.AdminMethod;
 import com.mtf.admin.common.constant.Constant;
 import com.mtf.admin.common.util.Cryptography;
 import com.mtf.admin.common.vo.*;
@@ -154,6 +155,7 @@ public class AgencyController extends BaseController {
     }
 
     @PostMapping("delete")
+    @AdminMethod
     public ResultData delete(Integer agencyId) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("agencyId", agencyId);
@@ -163,6 +165,7 @@ public class AgencyController extends BaseController {
     }
 
     @PostMapping("toggleDisable")
+    @AdminMethod
     public ResultData toggleDisable(Integer agencyId) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("agencyId", agencyId);
